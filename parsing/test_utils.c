@@ -31,7 +31,7 @@ int check_files(char *s1, char *s2)
     return (fd);
 }
 
-t_map	*new(char *line)
+t_map	*new(char *line, int len)
 {
 	t_map	*new;
 
@@ -39,6 +39,7 @@ t_map	*new(char *line)
 	if (!new)
 		return (NULL);
 	new->line = line;
+	new->llen = len;
 	new->next = NULL;
 	return (new);
 }

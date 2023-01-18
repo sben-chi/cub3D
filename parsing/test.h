@@ -13,22 +13,23 @@
 typedef struct s_map
 {
     char			*line;
+	int				llen;
     struct s_map	*next;
 }t_map;
 
 typedef struct s_data
 {
     char	*textures[4];
-    short	colors[2][3];
+    int		colors[2];
     t_map	*map;
 }t_data;
 
 /*-------functions----------*/
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int *t_len);
 int		check_files(char *s1, char *s2);
 int		my_strlen(char *s, char limit);
 int		add_back(t_map **map, t_map **last, t_map *nnode);
-t_map	*new(char *line);
+t_map	*new(char *line, int len);
 
 #endif

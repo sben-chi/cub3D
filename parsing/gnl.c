@@ -6,7 +6,7 @@
 /*   By: sben-chi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:41:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/17 13:41:44 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/18 10:43:19 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,18 @@ char	*cat_copy(char *s1, char *s2, int len)
 	return (t);
 }
 
-char	*t_return(int fd, int a, char *buff)
+char	*t_return(int fd, int a, char *buff, int *t_len)
 {
 	char	*t;
-	int		t_len;
 
 	t = NULL;
-	t_len = 0;
+	*t_len = 0;
 	while (buff[a] != '\n')
 	{
 		if (buff[a] == '\0')
 		{
-			t_len += a;
-			t = cat_copy(t, buff, t_len);
+			*t_len += a;
+			t = cat_copy(t, buff, *t_len);
 			a = read(fd, buff, BUFFER_SIZE);
 			if (a <= 0)
 				return (t);
@@ -61,11 +60,11 @@ char	*t_return(int fd, int a, char *buff)
 		}
 		a++;
 	}
-	t_len += a + 1;
-	return (cat_copy(t, buff, t_len));
+	*t_len += a + 1;
+	return (cat_copy(t, buff, *t_len));
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *t_len)
 {
 	static char	*buff;
 	char		*t;
@@ -79,7 +78,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		buff[0] = '\0';
 	}
-	t = t_return(fd, 0, buff);
+	t = t_return(fd, 0, buff, t_len);
 	if (!*buff)
 	{
 		free (buff);
