@@ -120,16 +120,13 @@ int	check_lines(t_data *data, t_map *last)
 	{
 		t = t->next;
 		i = 0;
-		printf(">%s\n", t->line);
 		while(i < t->llen - 1 && t->line[i] == ' ')
 			i++;
 		if (t->line[i] != '1' || t->line[t->llen - 2] != '1')
-		{
 			exit(printf("your map doesn't surrounded by walls3\n"));
-		}
-		while (i++ < t->llen)
+		while (i++ < t->llen - 2)
 		{
-			if (t->line[i] != ' ')
+			if (t->line[i] == ' ')
 			{
 				if ((t->next && t->next->line[i] != ' ' && t->next->line[i] != '1') ||
 					(t->prev && t->prev->line[i] != ' ' && t->prev->line[i] != '1'))
@@ -137,7 +134,7 @@ int	check_lines(t_data *data, t_map *last)
 			}
 			else if (t->line[i] != '0' && t->line[i] != '1' && t->line[i] != 'N' &&
 				t->line[i] != 'S' && t->line[i] != 'E' && t->line[i] != 'W')
-				exit(printf("Invalid map2\n"));
+						exit(printf("Invalid map2\n"));
 		}
 	}
 	return (1);
@@ -234,5 +231,5 @@ int main(int ac, char **av)
 //			printf("%s", temp->prev->line);
 //		printf("\n");
 //	}
-	system("leaks a.out");
+//	system("leaks a.out");
 }
