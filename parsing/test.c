@@ -102,17 +102,42 @@ short check_map(t_data *data)
 	return (1);
 }
 
-int	first_last_line(char *line, int len, short f)
+int	check_lines(t_data *data, t_map *last)
 {
-	int i;
-	
+	static int		i;
+	int		b;
+	t_map	*t;
+
+	t = data->map;
+	while (i++ < t->llen - 1) 
+		if (t->line[i] != '1' && t->line[i] != ' ')
+			exit(printf("your map doesn't surrounded by walls\n"));
 	i = 0;
-	if (!f && line[0] == '1' && line[len - 1] == '1')
-		return (1);
-	while (f && i < len && (line[i] == '1' || line[i] == ' '))
-		i++;
-	if (i < len)
-		exit(printf("Invalid Map\n"));
+	while (i++ < last->llen) 
+		if ((last->line[i] != '1' && last->line[i] != ' '))
+			exit(printf("your map doesn't surrounded by walls\n"));
+	t = t->next;
+	while (t->next)
+	{
+		t = t->next;
+		i = 0;
+		while(i < t->llen - 1 && t->line[i] == ' ')
+			i++;
+		if (t->line[++i] != '1' || t->line[t->llen - 2] != '1')
+			exit(printf("your map doesn't surrounded by walls\n"));
+		while (i++ < t->llen)
+		{
+			if (t->line[i] != ' ')
+			{
+				if ((t->next && t->next->line[i] != ' ' && t->next->line[i] != '1') ||
+					(t->prev && t->prev->line[i] != ' ' && t->prev->line[i] != '1'))
+					exit(printf("Invalid map\n"));
+			}
+			else if (t->line[i] != '0' && t->line[i] != '1' && t->line[i] != 'N' &&
+				t->line[i] != 'S' && t->line[i] != 'E' && t->line[i] != 'W')
+				exit(printf("Invalid map\n"));
+		}
+	}
 	return (1);
 }
 
@@ -134,19 +159,10 @@ int	first_last_line(char *line, int len, short f)
 11111111 1111111 111111111111*/
 
 
-int	parseMap(t_data *data, char *line, int len, short f)
-{
-	static t_map *map_last;
-
-	line[len - 1] = '\0';
-	first_last_line(line, len, f);
-	add_back(&data->map, &map_last, new(line, len - 1));
-	return (1);
-}
-
 void parse_time(t_data *data, int fd)
 {
 	char	*line;
+	static t_map *map_last;
 	int		llen;
 	short	mapTime;
 	short	f;
@@ -168,9 +184,10 @@ void parse_time(t_data *data, int fd)
 			else
 				free(line);
 		}
-		//parsemap 
-		mapTime && parseMap(data, line, llen, f);
+		else 
+			add_back(&data->map, &map_last, new(line, llen));
 	}
+	check_lines(data, map_last);
 }
 
 void	init_data(t_data *data)

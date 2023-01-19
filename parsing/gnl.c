@@ -69,7 +69,7 @@ char	*get_next_line(int fd, int *t_len)
 	static char	*buff;
 	char		*t;
 
-	if (fd <= -1 || fd >= OPEN_MAX)
+	if (fd <= -1 )
 		return (NULL);
 	if (!buff)
 	{
