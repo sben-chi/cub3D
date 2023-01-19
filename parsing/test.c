@@ -29,7 +29,6 @@ void	atSplit(t_data *data, char *element, int k)
 			if (i > 0)
 				continue ;
 		}
-		printf(">> %d . %d\n", nb, shift);
 		if (check_color_error(nb, i, shift, element))
 			exit(printf("Error: invalid nb of color2\n"));
 		data->colors[k] |= nb << shift;
@@ -109,33 +108,36 @@ int	check_lines(t_data *data, t_map *last)
 	t_map	*t;
 
 	t = data->map;
-	while (i++ < t->llen - 1) 
+	while (i++ < t->llen - 2) 
 		if (t->line[i] != '1' && t->line[i] != ' ')
-			exit(printf("your map doesn't surrounded by walls\n"));
-	i = 0;
-	while (i++ < last->llen) 
+			exit(printf("your map doesn't surrounded by walls1\n"));
+	i = -1;
+	while (++i < last->llen) 
 		if ((last->line[i] != '1' && last->line[i] != ' '))
-			exit(printf("your map doesn't surrounded by walls\n"));
+			exit(printf("your map doesn't surrounded by walls2\n"));
 	t = t->next;
 	while (t->next)
 	{
 		t = t->next;
 		i = 0;
+		printf(">%s\n", t->line);
 		while(i < t->llen - 1 && t->line[i] == ' ')
 			i++;
-		if (t->line[++i] != '1' || t->line[t->llen - 2] != '1')
-			exit(printf("your map doesn't surrounded by walls\n"));
+		if (t->line[i] != '1' || t->line[t->llen - 2] != '1')
+		{
+			exit(printf("your map doesn't surrounded by walls3\n"));
+		}
 		while (i++ < t->llen)
 		{
 			if (t->line[i] != ' ')
 			{
 				if ((t->next && t->next->line[i] != ' ' && t->next->line[i] != '1') ||
 					(t->prev && t->prev->line[i] != ' ' && t->prev->line[i] != '1'))
-					exit(printf("Invalid map\n"));
+					exit(printf("Invalid map1\n"));
 			}
 			else if (t->line[i] != '0' && t->line[i] != '1' && t->line[i] != 'N' &&
 				t->line[i] != 'S' && t->line[i] != 'E' && t->line[i] != 'W')
-				exit(printf("Invalid map\n"));
+				exit(printf("Invalid map2\n"));
 		}
 	}
 	return (1);
@@ -184,7 +186,7 @@ void parse_time(t_data *data, int fd)
 			else
 				free(line);
 		}
-		else 
+		if (mapTime) 
 			add_back(&data->map, &map_last, new(line, llen));
 	}
 	check_lines(data, map_last);
@@ -224,13 +226,13 @@ int main(int ac, char **av)
 //	printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
 //	printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
 //			(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
-	t_map *temp = my_data->map;
-	for (; temp; temp = temp->next)
-	{
-		printf("map => %s . len => %d . prev => ", temp->line, temp->llen);
-		if (temp->prev)
-			printf("%s", temp->prev->line);
-		printf("\n");
-	}
+//	t_map *temp = my_data->map;
+//	for (; temp; temp = temp->next)
+//	{
+//		printf("map => %s . len => %d . prev => ", temp->line, temp->llen);
+//		if (temp->prev)
+//			printf("%s", temp->prev->line);
+//		printf("\n");
+//	}
 	system("leaks a.out");
 }
