@@ -15,6 +15,7 @@ typedef struct s_map
     char			*line;
 	int				llen;
     struct s_map	*next;
+	struct s_map	*prev;
 }t_map;
 
 typedef struct s_data

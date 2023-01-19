@@ -41,6 +41,7 @@ t_map	*new(char *line, int len)
 	new->line = line;
 	new->llen = len;
 	new->next = NULL;
+	new->prev  = NULL;
 	return (new);
 }
 
@@ -48,11 +49,13 @@ int	add_back(t_map **map, t_map **last, t_map *nnode)
 {
 	if (!nnode)
 		return (1);
-	if (!(*map))
+	if (*map)
+		nnode->prev = *last;
+	else
 	{
 		(*map) = nnode;
 		(*last) = (*map);
-	}
+	}	
 	(*last)->next = nnode;
 	(*last) = (*last)->next;
 	return (1);

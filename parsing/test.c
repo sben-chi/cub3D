@@ -1,5 +1,12 @@
 #include "test.h"
 
+short	check_color_error(int nb, int i, short shift, char *e)
+{
+	return (nb > 255 || (!i && (e[i] < '0' || e[i] > '9')) ||
+			(shift > 16) || e[i - 1] == ',' ||
+			(e[i] != ',' && e[i] != '+' && (e[i] < '0' || e[i] > '9')));
+}
+
 void	atSplit(t_data *data, char *element, int k)
 {
 	int		i;
@@ -22,13 +29,10 @@ void	atSplit(t_data *data, char *element, int k)
 			if (i > 0)
 				continue ;
 		}
-		printf(">> %d\n", nb);
-		if (nb > 255)
-			exit(printf("Error: invalid nb of color1\n"));
-		data->colors[k] |= nb << shift;
-
-		if ((shift > 16) || element[i - 1] == ',' || (element[i] != ',' && element[i] != '+' && (element[i] < '0' || element[i] > '9')))
+		printf(">> %d . %d\n", nb, shift);
+		if (check_color_error(nb, i, shift, element))
 			exit(printf("Error: invalid nb of color2\n"));
+		data->colors[k] |= nb << shift;
 		shift += 8;
 		nb = 0;
 		div = 1;
@@ -98,19 +102,21 @@ short check_map(t_data *data)
 	return (1);
 }
 
-int	first_last_line(char *line, int len)
+int	first_last_line(char *line, int len, short f)
 {
 	int i;
 	
 	i = 0;
-//	while (i < )
-	return (0);
+	if (!f && line[0] == '1' && line[len - 1] == '1')
+		return (1);
+	while (f && i < len && (line[i] == '1' || line[i] == ' '))
+		i++;
+	if (i < len)
+		exit(printf("Invalid Map\n"));
+	return (1);
 }
 
 /*
-
-F 220,100,6
-C 225,30,5
 
         1111111111111111111111111
         1000000000110000000000001
@@ -128,12 +134,13 @@ C 225,30,5
 11111111 1111111 111111111111*/
 
 
-int	parseMap(t_data *data, char *line, int len)
+int	parseMap(t_data *data, char *line, int len, short f)
 {
 	static t_map *map_last;
 
 	line[len - 1] = '\0';
-	add_back(&data->map, &map_last, new(line, len));
+	first_last_line(line, len, f);
+	add_back(&data->map, &map_last, new(line, len - 1));
 	return (1);
 }
 
@@ -142,6 +149,7 @@ void parse_time(t_data *data, int fd)
 	char	*line;
 	int		llen;
 	short	mapTime;
+	short	f;
 
 	line = NULL;
 	mapTime = 0;
@@ -153,11 +161,15 @@ void parse_time(t_data *data, int fd)
 		if (!mapTime)
 		{
 			if (line[0] != '\n')
+			{
 				mapTime = !element(data, line) && check_map(data);
+				f = 1;
+			}
 			else
 				free(line);
 		}
-		mapTime && parseMap(data, line, llen);
+		//parsemap 
+		mapTime && parseMap(data, line, llen, f);
 	}
 }
 
@@ -192,11 +204,16 @@ int main(int ac, char **av)
 //		printf("textures => %s\n", my_data->textures[i]);
 	//cl => 14443526 . 14753285
 	//cl => 6 . 225
-	printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
-	printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
-			(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
-//	t_map *temp = my_data->map;
-//	for (; temp; temp = temp->next)
-//		printf("map => %s . len => %d\n", temp->line, temp->llen);
-//	system("leaks a.out");
+//	printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
+//	printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
+//			(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
+	t_map *temp = my_data->map;
+	for (; temp; temp = temp->next)
+	{
+		printf("map => %s . len => %d . prev => ", temp->line, temp->llen);
+		if (temp->prev)
+			printf("%s", temp->prev->line);
+		printf("\n");
+	}
+	system("leaks a.out");
 }
