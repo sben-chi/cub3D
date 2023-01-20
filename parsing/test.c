@@ -2,8 +2,8 @@
 
 short	check_color_error(int nb, int i, short shift, char *e)
 {
-	return (nb > 255 || (!i && (e[i] < '0' || e[i] > '9')) ||
-			(shift > 16) || e[i - 1] == ',' ||
+	return (nb > 255 || (shift > 16)
+			|| (!i && (e[i] < '0' || e[i] > '9')) ||
 			(e[i] != ',' && e[i] != '+' && (e[i] < '0' || e[i] > '9')));
 }
 
@@ -29,12 +29,16 @@ void	atSplit(t_data *data, char *element, int k)
 			if (i > 0)
 				continue ;
 		}
+		printf(">%c . %d\n", element[i], nb);
 		if (check_color_error(nb, i, shift, element))
 			exit(printf("Error: invalid nb of color2\n"));
 		data->colors[k] |= nb << shift;
-		shift += 8;
-		nb = 0;
-		div = 1;
+		if (element[i] == ',')
+		{
+			shift += 8;
+			nb = 0;
+			div = 1;
+		}
 	}
 	if (shift < 16)
 		exit(printf("Error: invalid nb of color: {xxx,xxx,xxx}\n"));
@@ -186,7 +190,7 @@ void parse_time(t_data *data, int fd)
 		if (mapTime) 
 			add_back(&data->map, &map_last, new(line, llen));
 	}
-	check_lines(data, map_last);
+	// check_lines(data, map_last);
 }
 
 void	init_data(t_data *data)
