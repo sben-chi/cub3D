@@ -7,6 +7,41 @@ short	check_color_error(int nb, int i, short shift, char *e)
 			(e[i] != ',' && e[i] != '+' && (e[i] < '0' || e[i] > '9')));
 }
 
+//void	atSplit(t_data *data, char *element, int k)
+//{
+//	int		i;
+//	int		div;
+//	int		j;
+
+//	i = my_strlen(element, '\0') - 1;
+//	div = 1;
+//	j = 0;
+//	if (element[i] != '\n')
+//		exit(printf("Error: color: data < \n"));
+//	j = 2;
+//	while (--i >= 0)
+//	{
+//		if (element[i] == ',')
+//		{
+//			if (data->colors[k][j] < 0 || data->colors[k][j] > 255)
+//				exit(printf("Error: invalid nb of color1\n"));
+//			j--;
+//			div = 1;
+//		}
+//		else if (element[i] >= '0' && element[i] <= '9')
+//		{
+//			if (data->colors[k][j] < 0)
+//				data->colors[k][j] = 0;
+//			data->colors[k][j] += (element[i] - 48) * div;
+//			div *= 10;
+//		}
+//		if ((j < 0) || (element[i] != ',' && element[i] != '+' && (element[i] < '0' || element[i] > '9')))
+//			exit(printf("Error: invalid nb of color2\n"));
+//	}
+//	if (data->colors[k][0] < 0)
+//		exit(printf("Error: invalid nb of color: {xxx,xxx,xxx}\n"));
+//}
+
 void	atSplit(t_data *data, char *element, int k)
 {
 	int		i;
@@ -216,20 +251,20 @@ int main(int ac, char **av)
 
 //-----------------------------test_parsing------------------------\\
 
-//	for (int i = 0; i < 4; i++)
-//		printf("textures => %s\n", my_data->textures[i]);
+	for (int i = 0; i < 4; i++)
+		printf("textures => %s\n", my_data->textures[i]);
 	//cl => 14443526 . 14753285
 	//cl => 6 . 225
-//	printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
-//	printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
-//			(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
-//	t_map *temp = my_data->map;
-//	for (; temp; temp = temp->next)
-//	{
-//		printf("map => %s . len => %d . prev => ", temp->line, temp->llen);
-//		if (temp->prev)
-//			printf("%s", temp->prev->line);
-//		printf("\n");
-//	}
-//	system("leaks a.out");
+	printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
+	printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
+			(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
+	t_map *temp = my_data->map;
+	for (; temp; temp = temp->next)
+	{
+		printf("map => %s . len => %d . prev => ", temp->line, temp->llen);
+		if (temp->prev)
+			printf("%s", temp->prev->line);
+		printf("\n");
+	}
+	system("leaks a.out");
 }
