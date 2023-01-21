@@ -23,7 +23,6 @@ typedef struct s_data
     char	*textures[4];
     int		colors[2];
     char    player;
-    int     p;
     t_map	*map;
 }t_data;
 

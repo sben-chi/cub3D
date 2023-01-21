@@ -7,91 +7,50 @@ short	check_color_error(int nb, int i, short shift, char *e)
 			(e[i] != ',' && e[i] != '+' && (e[i] < '0' || e[i] > '9')));
 }
 
-void	atSplit(t_data *data, char *element, int k)
+void	atSplit(t_data *data, char *element, int k, int len)
 {
 	int		i;
 	int		div;
 	int		cl[3] = {-1, -1, -1};
 	int		j;
 
-	i = my_strlen(element, '\0') - 1;
 	div = 1;
-	j = 0;
-	if (data->colors[k] >= 0 || element[i] != '\n')
+	if (data->colors[k] >= 0 || element[len - 1] != '\n')
 		exit(printf("Error: color: data < \n"));
+	i = len - 1;
 	j = 2;
 	while (--i >= 0)
 	{
 		if (element[i] == ',')
 		{
-			if (cl[j] < 0)
+			if (cl[j] < 0 || (!i && cl[0] < 0))
 				exit(printf("Error: invalid nb of color1\n"));
 			j--;
 			div = 1;
 		}
 		else if (element[i] >= '0' && element[i] <= '9')
 		{
-			if (cl[j] < 0)
-				cl[j] = 0;
-			cl[j] += (element[i] - 48) * div;
+			cl[j] += (element[i] - 48) * div + (cl[j] < 0);
 			if (cl[j] > 255)
-				exit(printf("Error: invalid nb of color1\n"));
+				exit(printf("Error: invalid nb of color2\n"));
 			div *= 10;
 		}
 		if ((j < 0) || (element[i] != ',' && element[i] != '+' && (element[i] < '0' || element[i] > '9')))
-			exit(printf("Error: invalid nb of color2\n"));
+			exit(printf("Error: invalid nb of color3\n"));
 	}
 	if (cl[0] < 0)
 		exit(printf("Error: invalid nb of color: {xxx,xxx,xxx}\n"));
 	data->colors[k] = (0 << 24 | cl[0] << 16 | cl[1] << 8 | cl[2]);
 }
 
-// void	atSplit(t_data *data, char *element, int k)
-// {
-// 	int		i;
-// 	int		div;
-// 	int		nb;
-// 	short	shift;
-	
-// 	i = my_strlen(element, '\0') - 1;
-// 	div = 1;
-// 	nb = 0;
-// 	shift = 0;
-// 	if (element[i] != '\n')
-// 		exit(printf("Error: color: data < \n"));
-// 	while (--i >= 0)
-// 	{
-// 		if (element[i] >= '0' && element[i] <= '9')
-// 		{
-// 			nb += (element[i] - 48) * div;
-// 			div *= 10;
-// 			if (i > 0)
-// 				continue ;
-// 		}
-// 		printf(">%c . %d\n", element[i], nb);
-// 		if (check_color_error(nb, i, shift, element))
-// 			exit(printf("Error: invalid nb of color2\n"));
-// 		data->colors[k] |= nb << shift;
-// 		if (element[i] == ',')
-// 		{
-// 			shift += 8;
-// 			nb = 0;
-// 			div = 1;
-// 		}
-// 	}
-// 	if (shift < 16)
-// 		exit(printf("Error: invalid nb of color: {xxx,xxx,xxx}\n"));
-// 	data->colors[k] |= 0 << 24;
-// }
-
-void	check_colors(t_data *data,  int i, char *element)
+void	check_colors(t_data *data,  int i, char *element, int len)
 {
 	int j;
 
 	j = 0;
 	while (element[j] && element[j] == ' ')
 		j++;
-	atSplit(data, element + j, i);
+	atSplit(data, element + j, i, len - j);
 }
 
 void	check_texture(t_data *data, int k,  char *element)
@@ -110,7 +69,7 @@ void	check_texture(t_data *data, int k,  char *element)
 	data->textures[k] = element + i;
 }
 
-short	element(t_data *data, char *element)
+short	element(t_data *data, char *element, int len)
 {
 	char	*tab[7] = {"NO ", "SO ", "EA ", "WE ", "C ", "F ", NULL};
 	int		i;
@@ -124,7 +83,7 @@ short	element(t_data *data, char *element)
 		check_texture(data, i, element + 2);
 	else
 	{
-		check_colors(data, (5 - i), element + 1);
+		check_colors(data, (5 - i), element + 1, len - 1);
 		free(element);
 	}
 	return (1);
@@ -144,50 +103,67 @@ short check_map(t_data *data)
 	return (1);
 }
 
-int	check_lines(t_data *data, t_map *last)
-{
-	static int		i;
-	int		b;
-	t_map	*t;
+// short	is_valid_map(t_map *t, int i, char p)
+// {
+// 	if (!t->prev && t->line[i] != '1' && t->line[i] != ' ')
+// 	{
+// 		printf("here1\n");
+// 		return (0);
+// 	}
+// 	if (!t->next && t->line[i] != '1' && t->line[i] != ' ')
+// 	{
+// 		printf("here2\n");
+// 		return (0);
+// 	}
+// 	if (t->line[i] == '0' && (t->next->line[i] == ' ' || (t->prev && t->prev->line[i] == ' ') 
+// 	|| (t->line[i + 1] == ' ' || t->line[i - 1] == ' ')))
+// 	{
+// 		printf("here3\n");
+// 		return (0);
+// 	}
+// 	if ((t->line[i] != ' ' && t->line[i] != '1' && t->line[i] != 'N' 
+// 		&& t->line[i] != 'S' && t->line[i] != 'E' && t->line[i] != 'W' && t->line[i] != '0'))
+// 	{
+// 		printf("here4\n");
+// 		return (0);
+// 	}
+// 	if ((t->prev || t->next) && ((t->line[0] != ' ' && t->line[0] != '1') 
+// 	|| (t->line[t->llen - 2] != ' ' && t->line[t->llen - 2] != '1')))
+// 	{
+// 		printf(">%s\n", t->line);
+// 		return (0);
+// 	}
+// 	return (1);
+// }
 
-	t = data->map;
-	while (i++ < t->llen - 2) 
-		if (t->line[i] != '1' && t->line[i] != ' ')
-			exit(printf("your map doesn't surrounded by walls1\n"));
-	i = -1;
-	while (++i < last->llen) 
-		if ((last->line[i] != '1' && last->line[i] != ' '))
-			exit(printf("your map doesn't surrounded by walls2\n"));
-	while (t->next->next)
-	{
-		t = t->next;
-		i = 0;
-		if ((t->line[i] != ' ' && t->line[i] != '1') 
-			|| (t->line[t->llen - 2] != ' ' && t->line[t->llen - 2] != '1'))
-			exit(printf("your map doesn't surrounded by walls3\n"));
-		while (i++ < t->llen - 2)
-		{
-			data->p += t->line[i] == 'N' || t->line[i] == 'S'
-							|| t->line[i] == 'E'|| t->line[i] == 'W';
-			if (t->line[i] == '0')
-			{
-				if ((t->next && t->next->line[i] != '1' && t->next->line[i] != '0' &&
-					t->next->line[i] != 'N' &&t->next->line[i] != 'S' 
-					&& t->next->line[i] != 'E' && t->next->line[i] != 'W')
-					|| (t->prev && t->prev->line[i] != '1' && t->prev->line[i] != '0' &&
-					t->prev->line[i] != 'N' &&t->prev->line[i] != 'S' 
-					&& t->prev->line[i] != 'E' && t->prev->line[i] != 'W'))
-					exit(printf("Invalid map1\n"));
-			}
-			else if (data->p > 1 || (t->line[i] != ' ' && t->line[i] != '1' && t->line[i] != 'N' &&
-				t->line[i] != 'S' && t->line[i] != 'E' && t->line[i] != 'W'))
-						exit(printf("Invalid map2\n"));
-			else if (t->line[i] == 'E' || t->line[i] == 'N' || t->line[i] == 'S' || t->line[i] == 'W')
-				data->player = t->line[i];
-		}
-	}
-	return (1);
-}
+// int	check_lines(t_data *data)
+// {
+// 	static int		i;
+// 	int		b;
+// 	t_map	*t;
+
+// 	t = data->map;
+// 	while (t->next)
+// 	{
+// 		i = 0;
+// 		while (i++ < t->llen - 2)
+// 		{
+// 			if (!is_valid_map(t, i, data->player))
+// 				exit(printf("Invalid map1\n"));
+// 			else if (t->line[i] == 'E' || t->line[i] == 'N'
+// 				|| t->line[i] == 'S' || t->line[i] == 'W')
+// 			{
+// 				if (data->player != '0')
+// 					exit(printf("error"));
+// 				data->player = t->line[i];
+// 			}
+// 		}
+// 		t = t->next;
+// 	}
+// 	if (data->player == '0')
+// 		exit(printf("Invalid map2\n"));
+// 	return (1);
+// }
 
 void parse_time(t_data *data, int fd)
 {
@@ -208,7 +184,7 @@ void parse_time(t_data *data, int fd)
 		{
 			if (line[0] != '\n')
 			{
-				mapTime = !element(data, line) && check_map(data);
+				mapTime = !element(data, line, llen) && check_map(data);
 				f = 1;
 			}
 			else
@@ -217,7 +193,7 @@ void parse_time(t_data *data, int fd)
 		if (mapTime) 
 			add_back(&data->map, &map_last, new(line, llen));
 	}
-	check_lines(data, map_last);
+	// check_lines(data);
 }
 
 void	init_data(t_data *data)
@@ -231,7 +207,7 @@ void	init_data(t_data *data)
 	data->colors[0] = -1;
 	data->colors[1] = -1;
 	data->map = NULL;
-	data->p = 0;
+	data->player = '0';
 }
 
 int main(int ac, char **av)
@@ -252,11 +228,11 @@ int main(int ac, char **av)
 	// 	printf("textures => %s\n", my_data->textures[i]);
 	//cl => 14443526 . 14753285
 	//cl => 6 . 225
-	// printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
-	// printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
-	// 		(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
-	// printf("cl => %d . %d . %d . %d\n", (my_data->colors[1]) & 0xFF,
-	// 		(my_data->colors[1]) >> 8 & 0xFF, (my_data->colors[1] >> 16) & 0xFF, (my_data->colors[1] >> 24) & 0xFF);
+	printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
+	printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
+			(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16) & 0xFF, (my_data->colors[0] >> 24) & 0xFF);
+	printf("cl => %d . %d . %d . %d\n", (my_data->colors[1]) & 0xFF,
+			(my_data->colors[1]) >> 8 & 0xFF, (my_data->colors[1] >> 16) & 0xFF, (my_data->colors[1] >> 24) & 0xFF);
 	// t_map *temp = my_data->map;
 	// for (; temp; temp = temp->next)
 	// {
