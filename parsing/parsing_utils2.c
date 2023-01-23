@@ -5,19 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/22 14:09:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/22 14:10:22 by sben-chi         ###   ########.fr       */
+/*   Created: 2023/01/22 15:19:38 by sben-chi          #+#    #+#             */
+/*   Updated: 2023/01/23 12:54:57 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int my_strlen(char *s, char limit)
+int my_strlen(char *s)
 {
     int i;
 
     i = 0;
-    while (s[i] != limit)
+    while (s && s[i])
         i++;
     return (i);
 }
@@ -57,7 +57,7 @@ t_map	*new(char *line, int len)
 	return (new);
 }
 
-int	add_back(t_map **map, t_map **last, t_map *nnode)
+short   add_back(t_map **map, t_map **last, t_map *nnode)
 {
 	if (!nnode)
 		return (1);

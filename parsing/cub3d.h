@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:52:55 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/22 14:08:09 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:54:45 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ typedef struct s_data
 
 char	*get_next_line(int fd, int *t_len);
 int		check_files(char *s1, char *s2);
-int		my_strlen(char *s, char limit);
-int		add_back(t_map **map, t_map **last, t_map *nnode);
+int		my_strlen(char *s);
+short	add_back(t_map **map, t_map **last, t_map *nnode);
 t_map	*new(char *line, int len);
 void	init_data(t_data *data);
-void parse_time(t_data *data, int fd);
+void    parse_time(t_data *data, int fd);
 short	element(t_data *data, char *element, int len);
 
 #endif

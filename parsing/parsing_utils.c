@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/22 14:06:25 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:57:51 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,14 @@ void	check_colors(t_data *data,  int i, char *element, int len)
 	getColor(data, element + j, i, len - j - 2);
 }
 
-void	check_texture(t_data *data, int k,  char *element)
+void	check_texture(t_data *data, int k,  char *element, int len)
 {
 	int	i;
-	int	len;
 
 	i = 0;
 	while (element[i] && element[i] == 32)
 		i++;
-	len = my_strlen(element, '\0');
+	len = my_strlen(element);
 	if (data->textures[k] || element[len - 1] != '\n')
 		exit(printf("Error: Texture file: data < \n"));
 	element[len - 1] = '\0';
@@ -71,7 +70,7 @@ void	check_texture(t_data *data, int k,  char *element)
 
 short	element(t_data *data, char *element, int len)
 {
-	char	*tab[7] = {"NO ", "SO ", "EA ", "WE ", "C ", "F ", NULL};
+	static char	*tab[8] = {"NO ", "SO ", "EA ", "WE ", "C ", "F ", NULL};
 	int		i;
 
 	i = 0;
@@ -80,7 +79,7 @@ short	element(t_data *data, char *element, int len)
 	if (!tab[i])
 		return (0);
 	if (i < 4)
-		check_texture(data, i, element + 2);
+		check_texture(data, i, element + 2, len);
 	else
 	{
 		check_colors(data, (5 - i), element + 1, len);
