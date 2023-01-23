@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/23 13:43:28 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:04:51 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,27 @@ short check_mapTime(t_data *data)
 	return (1);
 }
 
-short	is_valid(t_map *t, char *player, int i)
+short	exist_err(t_map *t, int i)
 {
-	if ((t->line[i] == '0') && (!i || i == t->llen - 2 || t->line[i - 1] == ' ' 
+	return ((!i || i == t->llen - 2 || t->line[i - 1] == ' ' 
 		|| t->line[i + 1] == ' ' || (t->next && (t->next->llen < i
 		|| t->next->line[i] == ' ' || t->next->line[i] == '\n'))
-		|| (t->prev && (t->prev->llen < i || t->prev->line[i] == ' ' || t->prev->line[i] == '\n'))))
+		|| (t->prev && (t->prev->llen < i || t->prev->line[i] == ' ' || t->prev->line[i] == '\n'))));
+}
+
+short	is_valid(t_map *t, char *player, int i)
+{
+	short	b;
+	static char str[] = "NSEW 01"; 
+
+	b = 0;
+	while (str[b] && str[b] != t->line[i])
+		b++;
+	if ((((t->line[i] == '0') || t->line[i] == 'N') && exist_err(t, i))
+		|| b == 7 || (b < 4 && *player != '0'))
 			return (0);
-	else if ((t->line[i] != '0' && t->line[i] != ' ' && t->line[i] != '1' && t->line[i] != 'N' &&
-		t->line[i] != 'S' && t->line[i] != 'E' && t->line[i] != 'W'))
-			return (0);
-	else if (t->line[i] == 'E' || t->line[i] == 'N' 
-		|| t->line[i] == 'S' || t->line[i] == 'W')
-	{
-		if (*player != '0')
-			return (0);
+	if (b < 4)
 		*player = t->line[i];
-	}
 	return (1);
 }
 
@@ -73,10 +77,10 @@ int	check_lines(t_data *data)
 
 void parse_time(t_data *data, int fd)
 {
-	char	*line;
-	static t_map *map_last;
-	int		llen;
-	short	mapTime;
+	char			*line;
+	static t_map	*map_last;
+	int				llen;
+	short			mapTime;
 
 	line = get_next_line(fd, &llen);
 	mapTime = 0;

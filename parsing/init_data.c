@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:30 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/23 11:59:56 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:37:04 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,4 @@ void	init_data(t_data *data)
 	data->colors[1] = -1;
 	data->map = NULL;
 	data->player = '0';
-	data->p = 0;
 }

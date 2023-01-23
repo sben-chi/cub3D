@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/23 12:57:51 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:12:37 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	getColor(t_data *data, char *element, int k, int len)
 			if (cl[j] > 255)
 				exit(printf("Error: invalid nb of color1\n"));
 		}
-		else if (element[len] != '+')
+		else
 			exit(printf("Error: invalid nb of color2\n"));
 	}
 	if (cl[0] < 0 || cl[1] < 0 || cl[2] < 0)
