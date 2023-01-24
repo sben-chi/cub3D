@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:41:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/22 15:08:52 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:12:53 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*get_next_line(int fd, int *t_len)
 	static char	*buff;
 	char		*t;
 
-	if (fd <= -1 )
+	if (fd <= -1)
 		return (NULL);
 	if (!buff)
 	{

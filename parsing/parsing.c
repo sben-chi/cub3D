@@ -6,15 +6,15 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:04:51 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:38:10 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-short check_mapTime(t_data *data)
+short	check_maptime(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -27,23 +27,28 @@ short check_mapTime(t_data *data)
 
 short	exist_err(t_map *t, int i)
 {
-	return ((!i || i == t->llen - 2 || t->line[i - 1] == ' ' 
-		|| t->line[i + 1] == ' ' || (t->next && (t->next->llen < i
-		|| t->next->line[i] == ' ' || t->next->line[i] == '\n'))
-		|| (t->prev && (t->prev->llen < i || t->prev->line[i] == ' ' || t->prev->line[i] == '\n'))));
+	short	a;
+	short	b;
+
+	a = (t->next && ((t->next->llen < i) || t->next->line[i] == ' '
+				|| t->next->line[i] == '\n'));
+	b = (t->prev && (t->prev->llen < i || t->prev->line[i] == ' '
+				|| t->prev->line[i] == '\n'));
+	return (!i || i == t->llen - 2 || t->line[i - 1] == ' '
+		|| t->line[i + 1] == ' ' || a || b);
 }
 
 short	is_valid(t_map *t, char *player, int i)
 {
-	short	b;
-	static char str[] = "NSEW 01"; 
+	short		b;
+	static char	str[] = "NSEW 01";
 
 	b = 0;
 	while (str[b] && str[b] != t->line[i])
 		b++;
 	if ((((t->line[i] == '0') || t->line[i] == 'N') && exist_err(t, i))
 		|| b == 7 || (b < 4 && *player != '0'))
-			return (0);
+		return (0);
 	if (b < 4)
 		*player = t->line[i];
 	return (1);
@@ -51,9 +56,9 @@ short	is_valid(t_map *t, char *player, int i)
 
 int	check_lines(t_data *data)
 {
-	short			b;
-	int				i;
-	t_map			*t;
+	short	b;
+	int		i;
+	t_map	*t;
 
 	t = data->map;
 	b = 0;
@@ -75,23 +80,23 @@ int	check_lines(t_data *data)
 	return (1);
 }
 
-void parse_time(t_data *data, int fd)
+void	parse_time(t_data *data, int fd)
 {
 	char			*line;
 	static t_map	*map_last;
 	int				llen;
-	short			mapTime;
+	short			map_time;
 
 	line = get_next_line(fd, &llen);
-	mapTime = 0;
+	map_time = 0;
 	while (line)
 	{
 		if (line[0] != '\n')
 		{
-			mapTime = !element(data, line, llen) && check_mapTime(data);
-			mapTime && add_back(&data->map, &map_last, new(line, llen));
+			map_time = (!element(data, line, llen) && check_maptime(data));
+			(map_time && add_back(&data->map, &map_last, new(line, llen)));
 		}
-		else if (line[0] == '\n' && !mapTime)
+		else if (line[0] == '\n' && !map_time)
 			free(line);
 		else
 			exit(printf("Error: invalid map2\n"));

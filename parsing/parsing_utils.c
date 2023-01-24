@@ -6,34 +6,30 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/23 15:12:37 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/24 12:41:33 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	getColor(t_data *data, char *element, int k, int len)
+void	get_color(t_data *data, char *element, int k, int len)
 {
-	int		div;
-	int		cl[3];
-	int		j;
+	int	i;
+	int	cl[3];
+	int	j;
 
-	div = 1;
-	j = -2;
-	while(++j < 2)
-		cl[j + 1] = -1;
-	while (--len >= 0)
+	j = 4;
+	i = -1;
+	while (--j > 0)
+		cl[j - 1] = -1;
+	while (++i < len)
 	{
-		if (element[len] == ',' && j > 0)
-			div = (j-- >= 0);
-		else if (element[len] >= '0' && element[len] <= '9')
-		{
-			cl[j] += (element[len] - 48) * div + (cl[j] < 0);
-			div *= 10;
-			if (cl[j] > 255)
-				exit(printf("Error: invalid nb of color1\n"));
-		}
-		else
+		i += (element[i] == '+');
+		while (element[i] >= 48 && element[i] <= 57 && cl[j] <= 255)
+			cl[j] = ((cl[j] + (cl[j] < 0)) * 10) + (element[i++] - 48);
+		if (element[i] == ',' && j < 2)
+			j++;
+		else if (cl[j] > 255 || element[i] != '\n')
 			exit(printf("Error: invalid nb of color2\n"));
 	}
 	if (cl[0] < 0 || cl[1] < 0 || cl[2] < 0)
@@ -41,19 +37,19 @@ void	getColor(t_data *data, char *element, int k, int len)
 	data->colors[k] = (0 << 24 | cl[0] << 16 | cl[1] << 8 | cl[2]);
 }
 
-void	check_colors(t_data *data,  int i, char *element, int len)
+void	check_colors(t_data *data, int i, char *element, int len)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	if (data->colors[i] >= 0 || element[len - 2] != '\n')
 		exit(printf("Error: color: data < \n"));
 	while (element[j] && element[j] == ' ')
 		j++;
-	getColor(data, element + j, i, len - j - 2);
+	get_color(data, element + j, i, len - j - 2);
 }
 
-void	check_texture(t_data *data, int k,  char *element, int len)
+void	check_texture(t_data *data, int k, char *element, int len)
 {
 	int	i;
 
@@ -62,7 +58,7 @@ void	check_texture(t_data *data, int k,  char *element, int len)
 		i++;
 	len = my_strlen(element);
 	if (data->textures[k] || element[len - 1] != '\n')
-		exit(printf("Error: Texture file: data < \n"));
+		exit(printf("Error: Texture file\n"));
 	element[len - 1] = '\0';
 	check_files(element + i, ".xpm");
 	data->textures[k] = element + i;
@@ -71,10 +67,10 @@ void	check_texture(t_data *data, int k,  char *element, int len)
 short	element(t_data *data, char *element, int len)
 {
 	static char	*tab[8] = {"NO ", "SO ", "EA ", "WE ", "C ", "F ", NULL};
-	int		i;
+	int			i;
 
 	i = 0;
-	while(tab[i] && strncmp(tab[i], element, strlen(tab[i])))
+	while (tab[i] && strncmp(tab[i], element, strlen(tab[i])))
 		i++;
 	if (!tab[i])
 		return (0);
