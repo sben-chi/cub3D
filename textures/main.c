@@ -6,16 +6,37 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 12:44:36 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:56:47 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../parsing/cub3d.h"
+#include <mlx.h>
+
+typedef struct mdata
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		lline;
+	int		endian;
+}mdata;
+
+void	my_mlx_pixel_put(mdata *dt, int x, int y, int color)
+{
+	char *dst;
+	dst = dt->addr + (y * dt->lline + x * (dt->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 int	main(int ac, char **av)
 {
 	t_data	*my_data;
+	void	*mlx;
+	void	*img;
 	int		fd;
+	// int		img_width;
+	// int		img_height;
 
 	if (ac != 2)
 		return (printf("Invalid argument!!\n"));
@@ -23,33 +44,8 @@ int	main(int ac, char **av)
 	init_data(my_data);
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
-
-	// -----------------------------mapping textures-------------------\\
-		
-		
-	
-	/*
-	// -----------------------------test_parsing------------------------\\
-
-		for (int i = 0; i < 4; i++)
-			printf("textures => %s\n", my_data->textures[i]);
-		cl => 14443526 . 14753285
-		cl => 6 . 225
-		 printf("cl => %d . %d\n", my_data->colors[0], my_data->colors[1]);
-		 printf("cl => %d . %d . %d . %d\n", (my_data->colors[0]) & 0xFF,
-		 		(my_data->colors[0]) >> 8 & 0xFF, (my_data->colors[0] >> 16)
-				& 0xFF, (my_data->colors[0] >> 24) & 0xFF);
-		 printf("cl => %d . %d . %d . %d\n", (my_data->colors[1]) & 0xFF,
-		 		(my_data->colors[1]) >> 8 & 0xFF, (my_data->colors[1] >> 16) 
-				& 0xFF, (my_data->colors[1] >> 24) & 0xFF);
-		t_map *temp = my_data->map;
-		for (; temp; temp = temp->next)
-		{
-			printf("map => %s . len => %d . prev => ", temp->line, temp->llen);
-			if (temp->prev)
-				printf("%s", temp->prev->line);
-			printf("\n");
-		}
-		system("leaks cub");
-	*/
+	mlx = mlx_init();
+	img = mlx_new_window(mlx, my_data->max * 32, my_data->lines * 32, "test");
+	mlx_loop(mlx);
+	// printf("%d . %d\n", img_width, img_height);
 }
