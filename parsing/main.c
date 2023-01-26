@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 17:56:32 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:08:13 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ int	main(int ac, char **av)
 	init_data(my_data);
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
+	printf("=> %zu . %zu\n", my_data->lines, my_data->max);
+	printf("=> %d . %d . %c\n", my_data->player[1], my_data->player[2],
+		my_data->player[0]);
 }
 
 /*
