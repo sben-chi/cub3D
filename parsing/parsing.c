@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 14:55:55 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:45:40 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ void	parse_time(t_data *data, int fd)
 		if (line[0] != '\n')
 		{
 			map_time = (!element(data, line, llen) && check_maptime(data));
-			/*data->lines += */
-			(map_time && add_back(&data->map, &map_last, new(line, llen)));
-			// data->max = map_time * ((llen > data->max) * llen
-			// 		+ (llen < data->max) * data->max);
+			data->lines += (map_time
+					&& add_back(&data->map, &map_last, new(line, llen)));
+			data->max = map_time * ((llen > data->max) * llen
+					+ (llen < data->max) * data->max);
 		}
 		else if (line[0] == '\n' && !map_time)
 			free(line);

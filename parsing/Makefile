@@ -8,7 +8,7 @@ OFILES = ${F:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OFILES)
-	$(CC) $(CFLAGS) $(OFILES) -o $(NAME) 
+	$(CC) $(CFLAGS) $(OFILES) -lmlx -framework OpenGL -framework AppKit -o $(NAME) 
 re: fclean all
 
 fclean:	clean
