@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:52:55 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/24 12:43:28 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:09:39 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 typedef struct s_map
 {
 	char			*line;
-	int				llen;
+	size_t			llen;
 	struct s_map	*next;
 	struct s_map	*prev;
 }t_map;
@@ -35,12 +35,14 @@ typedef struct s_data
 	char	*textures[4];
 	int		colors[2];
 	char	player;
+	size_t	max;
+	int		lines;
 	t_map	*map;
 }t_data;
 
 /*-------functions----------*/
 
-char	*get_next_line(int fd, int *t_len);
+char	*get_next_line(int fd, size_t *t_len);
 int		check_files(char *s1, char *s2);
 int		my_strlen(char *s);
 short	add_back(t_map **map, t_map **last, t_map *nnode);

@@ -6,13 +6,13 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:41:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/24 12:12:53 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:10:27 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*cat_copy(char *s1, char *s2, int len)
+char	*cat_copy(char *s1, char *s2, size_t len)
 {
 	char	*t;
 	int		i;
@@ -30,7 +30,7 @@ char	*cat_copy(char *s1, char *s2, int len)
 	if (s1)
 		free (s1);
 	j = 0;
-	while (i <= (len - 1))
+	while (i <= ((int)len - 1))
 		t[i++] = s2[j++];
 	t[i] = '\0';
 	i = 0;
@@ -40,7 +40,7 @@ char	*cat_copy(char *s1, char *s2, int len)
 	return (t);
 }
 
-char	*t_return(int fd, int a, char *buff, int *t_len)
+char	*t_return(int fd, size_t a, char *buff, size_t *t_len)
 {
 	char	*t;
 
@@ -64,7 +64,7 @@ char	*t_return(int fd, int a, char *buff, int *t_len)
 	return (cat_copy(t, buff, *t_len));
 }
 
-char	*get_next_line(int fd, int *t_len)
+char	*get_next_line(int fd, size_t *t_len)
 {
 	static char	*buff;
 	char		*t;

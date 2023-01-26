@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/24 12:38:10 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:59:52 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ short	exist_err(t_map *t, int i)
 	short	a;
 	short	b;
 
-	a = (t->next && ((t->next->llen < i) || t->next->line[i] == ' '
+	a = (t->next && ((t->next->llen < (size_t)i) || t->next->line[i] == ' '
 				|| t->next->line[i] == '\n'));
-	b = (t->prev && (t->prev->llen < i || t->prev->line[i] == ' '
+	b = (t->prev && (t->prev->llen < (size_t)i || t->prev->line[i] == ' '
 				|| t->prev->line[i] == '\n'));
-	return (!i || i == t->llen - 2 || t->line[i - 1] == ' '
+	return (!i || (size_t)i == t->llen - 2 || t->line[i - 1] == ' '
 		|| t->line[i + 1] == ' ' || a || b);
 }
 
@@ -66,7 +66,7 @@ int	check_lines(t_data *data)
 	{
 		i = -1;
 		b = (!t->prev || !t->next);
-		while (++i < t->llen - 1)
+		while (++i < (int)t->llen - 1)
 		{
 			if (b && t->line[i] != '1' && t->line[i] != ' ')
 				exit(printf("Error: your map doesn't surrounded by walls\n"));
@@ -84,7 +84,7 @@ void	parse_time(t_data *data, int fd)
 {
 	char			*line;
 	static t_map	*map_last;
-	int				llen;
+	size_t			llen;
 	short			map_time;
 
 	line = get_next_line(fd, &llen);
@@ -94,7 +94,10 @@ void	parse_time(t_data *data, int fd)
 		if (line[0] != '\n')
 		{
 			map_time = (!element(data, line, llen) && check_maptime(data));
-			(map_time && add_back(&data->map, &map_last, new(line, llen)));
+			data->lines += (map_time
+					&& add_back(&data->map, &map_last, new(line, llen)));
+			data->max = map_time * ((llen > data->max) * llen
+					+ (llen < data->max) * data->max);
 		}
 		else if (line[0] == '\n' && !map_time)
 			free(line);
