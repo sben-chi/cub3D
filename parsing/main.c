@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/27 12:14:58 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:57:56 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	main(int ac, char **av)
 	mdata	img;
 	void	*mlx_win;
 	int		fd;
-	 int		w;
-	 int		h;
+	int		w;
+	int		h;
 
 	if (ac != 2)
 		return (printf("Invalid argument!!\n"));
@@ -46,8 +46,7 @@ int	main(int ac, char **av)
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
 	printf("=> %zu . %zu\n", my_data->lines, my_data->max);
-	printf("=> %d . %d . %c\n", my_data->player[1], my_data->player[2],
-		my_data->player[0]);
+	printf("=> x:%d . y:%d . teta:%lf\n", my_data->player[0], my_data->player[1], my_data->teta);
 }
 
 

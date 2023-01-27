@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:52:55 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 18:43:05 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:40:39 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <limits.h>
 
 # define BUFFER_SIZE 10
+# define M_PI 3.14159265358979323846
 
 typedef struct s_map
 {
@@ -34,7 +35,8 @@ typedef struct s_data
 {
 	char	*textures[4];
 	int		colors[2];
-	int		player[3];
+	int		player[2];
+	double	teta;
 	size_t	max;
 	size_t	lines;
 	t_map	*map;
