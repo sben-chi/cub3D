@@ -11,11 +11,33 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <mlx.h>
+
+typedef struct mdata
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		lline;
+	int		endian;
+}mdata;
+
+void	my_mlx_pixel_put(mdata *dt, int x, int y)
+{
+	char *dst;
+	dst = dt->addr + (y * dt->lline + x * (dt->bits_per_pixel / 8));
+	//*(unsigned int*)dst = color;
+}
 
 int	main(int ac, char **av)
 {
 	t_data	*my_data;
+	void	*mlx;
+	mdata	img;
+	void	*mlx_win;
 	int		fd;
+	 int		w;
+	 int		h;
 
 	if (ac != 2)
 		return (printf("Invalid argument!!\n"));
@@ -23,7 +45,24 @@ int	main(int ac, char **av)
 	init_data(my_data);
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, my_data->max * 32, my_data->lines * 32, "test");
+	img.img = mlx_xpm_file_to_image(mlx, "../map_test/wall.xpm", &w, &h);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.lline, &img.endian);
+	
+	t_map *m = my_data->map;
+	int y = -1, x;
+	while (++y < h)
+	{
+		x = -1;
+		while (++x < w)
+			my_mlx_pixel_put(&img, x, y);
+	}
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
+	// printf("%d . %d\n", img_width, img_height);
 }
+
 
 /*
 // -----------------------------test_parsing------------------------\\
