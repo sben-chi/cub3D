@@ -1,5 +1,6 @@
 NAME = cub
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS =  -Imlx#-fsanitize=address -g
+LFLAGS = -lmlx -framework OpenGL -framework AppKit
 CC = gcc
 F =  init_data.c parsing_utils.c gnl.c main.c parsing.c parsing_utils2.c
 
@@ -8,7 +9,7 @@ OFILES = ${F:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OFILES)
-	$(CC) $(CFLAGS) $(OFILES) -lmlx -framework OpenGL -framework AppKit -o $(NAME) 
+	$(CC) $(CFLAGS) $(OFILES) $(LFLAGS) -o $(NAME) 
 re: fclean all
 
 fclean:	clean

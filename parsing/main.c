@@ -6,16 +6,38 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 19:08:13 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/27 18:57:56 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <mlx.h>
+
+typedef struct mdata
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		lline;
+	int		endian;
+}mdata;
+
+void	my_mlx_pixel_put(mdata *dt, int x, int y)
+{
+	char *dst;
+	dst = dt->addr + (y * dt->lline + x * (dt->bits_per_pixel / 8));
+	//*(unsigned int*)dst = color;
+}
 
 int	main(int ac, char **av)
 {
 	t_data	*my_data;
+	void	*mlx;
+	mdata	img;
+	void	*mlx_win;
 	int		fd;
+	int		w;
+	int		h;
 
 	if (ac != 2)
 		return (printf("Invalid argument!!\n"));
@@ -24,9 +46,9 @@ int	main(int ac, char **av)
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
 	printf("=> %zu . %zu\n", my_data->lines, my_data->max);
-	printf("=> %d . %d . %c\n", my_data->player[1], my_data->player[2],
-		my_data->player[0]);
+	printf("=> x:%d . y:%d . teta:%lf\n", my_data->player[0], my_data->player[1], my_data->teta);
 }
+
 
 /*
 // -----------------------------test_parsing------------------------\\
