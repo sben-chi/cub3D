@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 17:56:47 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/27 13:53:58 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_mlx_pixel_put(mdata *dt, int x, int y, int color)
 {
 	char *dst;
 	dst = dt->addr + (y * dt->lline + x * (dt->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	// *(unsigned int*)dst = color;
 }
 
 int	main(int ac, char **av)
