@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 17:56:32 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 19:08:13 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,9 @@ int	main(int ac, char **av)
 	init_data(my_data);
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, my_data->max * 32, my_data->lines * 32, "test");
-	img.img = mlx_xpm_file_to_image(mlx, "../map_test/wall.xpm", &w, &h);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.lline, &img.endian);
-	
-	t_map *m = my_data->map;
-	int y = -1, x;
-	while (++y < h)
-	{
-		x = -1;
-		while (++x < w)
-			my_mlx_pixel_put(&img, x, y);
-	}
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
-	// printf("%d . %d\n", img_width, img_height);
+	printf("=> %zu . %zu\n", my_data->lines, my_data->max);
+	printf("=> %d . %d . %c\n", my_data->player[1], my_data->player[2],
+		my_data->player[0]);
 }
 
 

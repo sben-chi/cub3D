@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:52:55 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 15:46:51 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/26 18:43:05 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
 {
 	char	*textures[4];
 	int		colors[2];
-	char	player;
+	int		player[3];
 	size_t	max;
 	size_t	lines;
 	t_map	*map;
