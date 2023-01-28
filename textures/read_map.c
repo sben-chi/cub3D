@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3D.h"
 
 char	*join_char(char *s, char c)
 {

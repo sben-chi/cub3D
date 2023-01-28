@@ -1,68 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/22 13:52:55 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
+/*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
+/*   Updated: 2023/01/28 18:43:38 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D__H
-# define CUB3D__H
+#ifndef CUB3D_H
+# define CUB3D_H
 
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
+# include <mlx.h>
+# include <string.h>
 # include <limits.h>
 
-# define BUFFER_SIZE 10
-# define PI 3.14159265358979323846
+# include "./data.h"
+# include "./macros.h"
 
-typedef struct s_image
-{
-	void	*img;
-	char	*address;
-	int		bit;
-	int		size;
-	int		endian;
-} t_image;
-
-typedef struct s_window
-{
-	void	*mlx;
-	void	*win;
-	long long	map_size[2];
-	t_image	*image;
-} t_window;
-
-typedef struct s_map
-{
-	char			*line;
-	long long			llen;
-	struct s_map	*next;
-	struct s_map	*prev;
-} t_map;
-
-typedef struct s_data
-{
-	char	*textures[4];
-	int		colors[2];
-	int		player[3];
-	size_t	max;
-	size_t	lines;
-	t_map	*map;
-	double	teta;
-	t_window *win;
-	long long p[2];
-} t_data;
-
-
-/*-------functions----------*/
+// void	draw_lines(t_segment *seg, t_window *win, double *len);
+void	draw_lines(t_segment *seg, t_window *win);
+// int	**get_map_arr(t_map *lines, t_data *data);
+void	draw_view_angle(t_data *data, t_window *win);
+void	draw_map(t_image *img, t_data *data);
 
 char	*get_next_line(int fd, size_t *t_len);
 int		check_files(char *s1, char *s2);

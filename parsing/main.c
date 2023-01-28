@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/27 18:57:56 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 #include <mlx.h>
 
 typedef struct mdata
@@ -41,7 +41,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (printf("Invalid argument!!\n"));
-	my_data = malloc(sizeof(t_data));
+	my_data = calloc(1, sizeof(t_data));
 	init_data(my_data);
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);

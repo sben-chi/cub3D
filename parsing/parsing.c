@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/27 18:54:41 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 short	check_maptime(t_data *data)
 {
@@ -53,8 +53,8 @@ short	is_valid(t_map *t, t_data *data, int i)
 	{
 		data->player[0] = i + 1;
 		data->player[1] = data->lines;
-		data->teta = (3 * M_PI / 2) * (t->line[i] == 'S')
-			+  M_PI * (t->line[i] == 'N') + (M_PI / 2) * (t->line[i] == 'W');
+		data->teta = (3 * PI / 2) * (t->line[i] == 'S')
+			+  PI * (t->line[i] == 'N') + (PI / 2) * (t->line[i] == 'W');
 	}
 	return (1);
 }

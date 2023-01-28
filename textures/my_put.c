@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3D.h"
 
 int	wall_c(int flag, int color)
 {
@@ -165,14 +165,14 @@ int	manage_keys(int k, t_data *all)
 	int	new[2];
 
 	new[0] = all->tp.s.x + (((k == w_key) * 20) + ((k == s_key) * -20)) * cos(all->rot)
-		+ (((k == a_key) * -20) + ((k == d_key) * 20)) * cos(all->rot + M_PI_2);
+		+ (((k == a_key) * -20) + ((k == d_key) * 20)) * cos(all->rot + PI_2);
 	new[1] = all->tp.s.y + (((k == w_key) * 20) + ((k == s_key) * -20)) * sin(all->rot)
-		+ (((k == a_key) * -20) + ((k == d_key) * 20)) * sin(all->rot + M_PI_2);
+		+ (((k == a_key) * -20) + ((k == d_key) * 20)) * sin(all->rot + PI_2);
 	if (all->img_d.p[new[0] + (new[1] * all->img_d.width)] == wall_c(0, 0))
 		return (-1);
 	all->tp.s.x = new[0];
 	all->tp.s.y = new[1];
-	all->rot += ((k == 124) * (M_PI / 6)) + ((k == 123) * (-M_PI / 6));
+	all->rot += ((k == 124) * (PI / 6)) + ((k == 123) * (-PI / 6));
 	return (0);
 }
 
@@ -225,20 +225,20 @@ int	do_it(int key, t_data *all)
 	int		x;
 	float	inc;
 
-	inc = (M_PI / 3) / all->s.pic.width;
+	inc = (PI / 3) / all->s.pic.width;
 	x = 0;
 	if (manage_keys(key, all) == -1)
 		return (-1);
 	draw(&all->img_d, &all->inf);
 	reset_img(all);
-	float angle = all->rot - (M_PI / 6);
-	while (angle < all->rot + (M_PI / 6))
+	float tetale = all->rot - (PI / 6);
+	while (tetale < all->rot + (PI / 6))
 	{
-		all->tp.e.y = 4000 * sin(angle);
-		all->tp.e.x = 4000 * cos(angle);
+		all->tp.e.y = 4000 * sin(tetale);
+		all->tp.e.x = 4000 * cos(tetale);
 		distance = draw_line(all->tp, &all->img_d, get_value(0, 0, 0, 255), all->rot);
 		draw_sewindow(x, distance, get_value(0, 67, 225, 69), all);
-		angle += inc;
+		tetale += inc;
 		x++;
 	}
 	mlx_put_image_to_window(all->inf.mlx,
@@ -254,7 +254,7 @@ int	main(void)
 
 	all_data.tp.s.y = 100;
 	all_data.tp.s.x = 100;
-	all_data.cons = 32 * (main_w / 2) / tan(M_PI / 6);
+	all_data.cons = 32 * (main_w / 2) / tan(PI / 6);
 	all_data.rot = 0;
 	all_data.inf.mlx = mlx_init();
 	draw_map(&all_data);
