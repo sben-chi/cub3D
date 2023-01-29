@@ -1,49 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/22 13:52:55 by sben-chi          #+#    #+#             */
+/*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
 /*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D__H
-# define CUB3D__H
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <limits.h>
-
-# define BUFFER_SIZE 10
-# define PI 3.14159265358979323846
+#ifndef DATA_H
+# define DATA_H
 
 typedef struct s_image
 {
-	void	*img;
-	char	*address;
 	int		bit;
 	int		size;
 	int		endian;
+	char	*address;
+	void	*img;
 } t_image;
 
 typedef struct s_window
 {
-	void	*mlx;
-	void	*win;
-	long long	map_size[2];
-	t_image	*image;
+	void		*mlx;
+	void		*win;
+	t_image		*image;
 } t_window;
 
 typedef struct s_map
 {
 	char			*line;
-	long long			llen;
+	long long		llen;
 	struct s_map	*next;
 	struct s_map	*prev;
 } t_map;
@@ -59,18 +48,18 @@ typedef struct s_data
 	double	teta;
 	t_window *win;
 	long long p[2];
+	// int	**map_arr;
 } t_data;
 
-
-/*-------functions----------*/
-
-char	*get_next_line(int fd, size_t *t_len);
-int		check_files(char *s1, char *s2);
-int		my_strlen(char *s);
-short	add_back(t_map **map, t_map **last, t_map *nnode);
-t_map	*new(char *line, int len);
-void	init_data(t_data *data);
-void	parse_time(t_data *data, int fd);
-short	element(t_data *data, char *element, int len);
+typedef struct s_segment
+{
+	short			b;
+	short			add[2];
+	long			color;
+	long long		xi;
+	long long		yi;
+	long long		xf;
+	long long		yf;
+} t_segment;
 
 #endif
