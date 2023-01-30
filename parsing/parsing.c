@@ -73,9 +73,8 @@ int	check_lines(t_data *data)
 		data->lines++;
 		while (++i < (int)t->llen - 1)
 		{
-			if (b && t->line[i] != '1' && t->line[i] != ' ')
-				exit(printf("Error: your map doesn't surrounded by walls\n"));
-			else if (!is_valid(t, data, i))
+			if ((b && t->line[i] != '1' && t->line[i] != ' ')
+				|| !is_valid(t, data, i))
 				exit(printf("Error: Invalid map\n"));
 		}
 		t = t->next;
