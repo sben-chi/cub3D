@@ -1,7 +1,8 @@
 NAME = cub3D
 NAME_B = cub3D_bonus
 CC = gcc
-CFLAGS		= -lm -lmlx -lbsd -lXext -lX11 -fsanitize=address -g -L /usr/local/lib -I /usr/local/include
+CFLAGS		= -Imlx -fsanitize=address -g #-lm -lmlx -lbsd -lXext -lX11 -I /usr/local/include
+LDFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit #-L /usr/local/lib
 F =  init_data.c parsing_utils.c gnl.c main.c parsing.c parsing_utils2.c
 
 OFILES = ${F:.c=.o}
@@ -9,7 +10,7 @@ OFILES = ${F:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OFILES)
-	$(CC) $(OFILES)  -o $(NAME) $(CFLAGS)
+	$(CC) $(OFILES)  -o $(NAME) $(CFLAGS) $(LDFLAGS)
 re: fclean all
 
 fclean:	clean
