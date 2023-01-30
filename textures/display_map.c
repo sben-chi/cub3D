@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	init(t_info	*gm_info, int *max)
 {
