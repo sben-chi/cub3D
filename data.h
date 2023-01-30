@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
+/*   Updated: 2023/01/30 12:38:05 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,14 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	char	*textures[4];
-	int		colors[2];
-	int		player[3];
-	size_t	max;
-	size_t	lines;
-	t_map	*map;
-	double	teta;
-	t_window *win;
-	long long p[2];
+	int			colors[2];
+	char		*textures[4];
+	t_map		*map;
+	size_t		max;
+	size_t		lines;
+	double		teta;
+	t_window	*win;
+	long long	p[2];
 	// int	**map_arr;
 } t_data;
 
