@@ -24,7 +24,7 @@ $(NAME_B): $(BONUS:.c=.o)
 bonus:$(NAME_B)
 
 clean:
-	rm -rf *.o rm -rf ../parsing/*.o
+	rm -rf *.o ../parsing/*.o ../*.o
 
 fclean: clean
 	rm -rf $(NAME) $(NAME_B)
