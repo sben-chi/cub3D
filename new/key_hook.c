@@ -21,10 +21,13 @@ int	key_hook(int key, t_data *d)
 		p[1] = d->p[1] + STEP * sin(d->teta) * ((key == W) - (key == S));
 		p[0] -= STEP * sin(d->teta) * ((key == D) - (key == A));
 		p[1] += STEP * cos(d->teta) * ((key == D) - (key == A));
-		if (d->map_arr[p[1] / TILE][p[0] / TILE])
-			return (0);
-		d->p[0] = p[0];
-		d->p[1] = p[1];
+		if (!d->map_arr[(int)d->p[1] / TILE][(int)p[0] / TILE])
+			d->p[0] = p[0];
+		if (!d->map_arr[p[1] / TILE][(int)d->p[0] / TILE])
+			d->p[1] = p[1];
+
+		
+			// return (0);
 	}
 	else if (key == ESC)
 	// {

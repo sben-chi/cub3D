@@ -25,6 +25,8 @@ void	draw_walls(t_image *cub, double *rays, bool *inter)
 	while (++x < WIDTH)
 	{ 
 		k += (x > WIDTH_2) - (x <= WIDTH_2);
+		if (rays[x] < 1)
+			rays[x] = 1;
 		wall_h = round((TILE / rays[x]) * PROJ_DST);
 		dst_proj = round((HEIGHT - wall_h) / 2);
 		y[0] = 0;
