@@ -265,3 +265,19 @@ int	main(void)
 		all_data.s.window, all_data.s.pic.img, 0, 0);
 	mlx_loop(all_data.inf.mlx);
 }
+
+typedef struct mdata
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		lline;
+	int		endian;
+}mdata;
+
+void	my_mlx_pixel_put(mdata *dt, int x, int y, int color)
+{
+	char *dst;
+	dst = dt->addr + (y * dt->lline + x * (dt->bits_per_pixel / 8));
+	// *(unsigned int*)dst = color;
+}

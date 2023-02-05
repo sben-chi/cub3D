@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
+/*   Updated: 2023/02/04 12:37:30 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
 
+# include "stdbool.h"
+
 typedef struct s_image
 {
-	int		bit;
-	int		size;
+	int		bits;
+	int		len;
 	int		endian;
 	char	*address;
 	void	*img;
@@ -39,16 +41,19 @@ typedef struct s_map
 
 typedef struct s_data
 {
-	char	*textures[4];
-	int		colors[2];
-	int		player[3];
-	size_t	max;
-	size_t	lines;
-	t_map	*map;
-	double	teta;
-	t_window *win;
-	long long p[2];
-	// int	**map_arr;
+	int			colors[2];
+	char		*textures[4];
+	t_map		*map;
+	size_t		max;
+	size_t		lines;
+
+	bool		*inter;
+	bool		**map_arr;
+	double		*rays;
+	double		teta;
+	double		p[2];
+	t_window	*win;
+	t_window	*tst;	// 2D MAP (delete)
 } t_data;
 
 typedef struct s_segment

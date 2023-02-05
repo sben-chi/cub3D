@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
+/*   Updated: 2023/01/30 12:12:59 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ short	is_valid(t_map *t, t_data *data, int i)
 		return (0);
 	if (b < 4)
 	{
-		data->player[0] = i + 1;
-		data->player[1] = data->lines;
+		data->p[0] = i * TILE + TILE / 2;
+		data->p[1] = data->lines * TILE + TILE / 2;
 		data->teta = (3 * PI / 2) * (t->line[i] == 'S')
 			+  PI * (t->line[i] == 'N') + (PI / 2) * (t->line[i] == 'W');
 	}
@@ -71,13 +71,13 @@ int	check_lines(t_data *data)
 	{
 		i = -1;
 		b = (!t->prev || !t->next);
-		data->lines++;
 		while (++i < (int)t->llen - 1)
 			if ((b && t->line[i] != '1' && t->line[i] != ' ') || !is_valid(t, data, i))
 				exit(printf("Error: Invalid map\n"));
+		data->lines++;
 		t = t->next;
 	}
-	if (data->player[0] < 0)
+	if (data->p[0] < 0)
 		exit(printf("Error: Invalid map\n"));
 	return (1);
 }

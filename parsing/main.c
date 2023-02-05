@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/28 18:39:16 by imane            ###   ########.fr       */
+/*   Updated: 2023/01/30 12:11:11 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int ac, char **av)
 	fd = check_files(av[1], ".cub");
 	parse_time(my_data, fd);
 	printf("=> %zu . %zu\n", my_data->lines, my_data->max);
-	printf("=> x:%d . y:%d . teta:%lf\n", my_data->player[0], my_data->player[1], my_data->teta);
+	printf("=> x:%lld . y:%lld . teta:%lf\n", my_data->p[0], my_data->p[1], my_data->teta);
 }
 
 
