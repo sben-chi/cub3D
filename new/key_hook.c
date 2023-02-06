@@ -1,9 +1,40 @@
-# include "../cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_hook.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 12:14:27 by irhesri           #+#    #+#             */
+/*   Updated: 2023/02/06 12:14:28 by irhesri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3D.h"
 
 int	my_close(t_window *win)
 {
 	mlx_destroy_window(win->mlx, win->win);
 	exit(0);
+}
+
+void	new_image(t_data *data, t_window *win)
+{
+	void		*img;
+	void		*tmp;
+	char		*a;
+
+	img = mlx_new_image(win->mlx, WIDTH, HEIGHT);
+	a = mlx_get_data_addr(img, &(win->image->bits), &(win->image->len), &(win->image->endian));
+	win->image->address = a;
+	tmp = win->image->img;
+	win->image->img = img;
+	// draw_map(data, win->image);				// put it back when u remove tst map
+	// draw_view_angle(data, win);				// put it back when u remove tst map
+	draw_walls(data, win->image, data->rays);
+	mlx_clear_window(win->mlx, win->win);
+	mlx_put_image_to_window (win->mlx, win->win, img, 0, 0);
+	(tmp) && mlx_destroy_image(win->mlx, tmp);
 }
 
 int	key_hook(int key, t_data *d)
@@ -25,18 +56,15 @@ int	key_hook(int key, t_data *d)
 			d->p[0] = p[0];
 		if (!d->map_arr[p[1] / TILE][(int)d->p[0] / TILE])
 			d->p[1] = p[1];
-
-		
-			// return (0);
 	}
 	else if (key == ESC)
-	// {
-	// 	my_close(d->tst); // to delete
+	{
+		mlx_destroy_window(d->tst->mlx, d->tst->win); // to delete
 		my_close(d->win);
-	// }
+	}
 	else
 		return (0);
-	new_image_tst(d, d->tst);
+	new_image_tst(d, d->tst); // to delete
 	new_image(d, d->win);
 	return (1);
 }

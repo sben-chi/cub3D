@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
+/*   Updated: 2023/02/06 12:14:25 by irhesri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3D.h"
 
 t_data	*init_data_(char *file_name)
@@ -21,29 +33,8 @@ t_data	*init_data_(char *file_name)
 	win->image = my_calloc(1, sizeof(t_image));
 	data->win = win;
 	data->map_arr = get_map_arr(data->map, data->lines, data->max);
-	
-	
+
 	return (data);
-}
-
-
-void	new_image(t_data *data, t_window *win)
-{
-	void		*img;
-	void		*tmp;
-	char		*a;
-
-	img = mlx_new_image(win->mlx, WIDTH, HEIGHT);
-	a = mlx_get_data_addr(img, &(win->image->bits), &(win->image->len), &(win->image->endian));
-	win->image->address = a;
-	tmp = win->image->img;
-	win->image->img = img;
-	// draw_map(data, win->image);
-	// draw_view_angle(data, win);
-	draw_walls(win->image, data->rays, data->inter);
-	mlx_clear_window(win->mlx, win->win);
-	mlx_put_image_to_window (win->mlx, win->win, img, 0, 0);
-	(tmp) && mlx_destroy_image(win->mlx, tmp);
 }
 
 int	main(int ac, char **av)

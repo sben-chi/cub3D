@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/05 18:50:20 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/06 11:48:51 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 bool	**get_map_arr(t_map *map, size_t lines, size_t max);
 void	draw_view_angle(t_data *data, t_window *win);
 // void	draw_map(t_image *img, t_data *data);
-double	is_equale(double n1, double n2);;
-double	fabs(double nbr);
 
 
 void	*my_calloc(size_t count, size_t size);
@@ -40,7 +38,7 @@ bool	put_error(char *s, size_t len);
 
 int		my_close(t_window *win);
 int		key_hook(int key, t_data *d);
-void	draw_walls(t_image *cub, double *rays, bool *inter);
+void	draw_walls(t_data *data, t_image *cub, double *rays);
 void	new_image(t_data *data, t_window *win);
 void	init_data_tst(t_data *data);
 

@@ -1,4 +1,21 @@
-# include "../cub3D.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersections.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
+/*   Updated: 2023/02/06 12:14:39 by irhesri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3D.h"
+
+static double	is_equale(double n1, double n2)
+{
+	return ((n1 >= (n2 - 0.1)) && (n1 <= (n2 - 0.1)));
+}
 
 double	*get_intersection_x(t_image *map, double *p, double teta, short *sym, bool **arr,t_data *data)
 {
@@ -74,15 +91,6 @@ double	*get_intersection_y(t_image *map, double *p, double teta, short *sym, boo
 	}
 }
 
-static double	angle_round(double teta)
-{
-	while ((teta < 0) && (teta <= (2 * -PI)))
-		teta += (2 * PI);
-	while ((teta > 0) && (teta >= (2 * PI)))
-		teta -= (2 * PI);
-	return (teta);
-}
-
 bool	get_dest(t_image *map, double *p, double teta, double *rays, bool **arr, t_data *data)
 {
 	bool	inter;
@@ -121,13 +129,31 @@ void	draw_view_angle(t_data *data, t_window *win)
 	short		k;
 	double		teta;
 
-	k = WIDTH_2;
-	data->teta = angle_round(data->teta);
-	teta = data->teta;
-	while (--k >= -WIDTH_2)
+	k = WIDTH;
+	teta = data->teta + WIDTH_2 * ANGLE;
+	while (--k)
 	{
-		teta = data->teta + k * ANGLE;
-		teta = angle_round(teta);
-		data->inter[WIDTH_2 + k] = get_dest(data->tst->image, data->p, teta, data->rays + WIDTH_2 + k, data->map_arr, data);
+		while ((teta < 0) && (teta <= (2 * -PI)))
+			teta += (2 * PI);
+		while ((teta > 0) && (teta >= (2 * PI)))
+			teta -= (2 * PI);
+		data->inter[k] = get_dest(data->tst->image, data->p, teta, data->rays + k, data->map_arr, data);
+		teta -= ANGLE;
 	}
 }
+
+// void	draw_view_angle(t_data *data, t_window *win)
+// {
+// 	short		k;
+// 	double		teta;
+
+// 	k = WIDTH_2;
+// 	data->teta = angle_round(data->teta);
+// 	teta = data->teta;
+// 	while (--k >= -WIDTH_2)
+// 	{
+// 		teta = data->teta + k * ANGLE;
+// 		teta = angle_round(teta);
+// 		data->inter[WIDTH_2 + k] = get_dest(data->tst->image, data->p, teta, data->rays + WIDTH_2 + k, data->map_arr, data);
+// 	}
+// }
