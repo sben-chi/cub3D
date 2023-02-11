@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:27 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/06 12:14:28 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:30:28 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,15 @@ int	key_hook(int key, t_data *d)
 		return (0);
 	new_image_tst(d, d->tst); // to delete
 	new_image(d, d->win);
+	return (1);
+}
+
+int	mouse_hook(int x, int y, t_data *data)
+{
+	data->teta += 0.1 * ((x > WIDTH_2) - (x < WIDTH_2));
+	mlx_mouse_hide();
+	mlx_mouse_move(data->win->win, WIDTH_2, HEIGHT /  2);
+	new_image_tst(data, data->tst); // to delete
+	new_image(data, data->win);
 	return (1);
 }

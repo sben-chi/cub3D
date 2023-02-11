@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 16:04:03 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:30:13 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ t_data	*init_data_(char *file_name)
 	win->image = my_calloc(1, sizeof(t_image));
 	data->win = win;
 	data->map_arr = get_map_arr(data->map, data->lines, data->max);
-
+	mlx_mouse_hide();
+	mlx_mouse_move(data->win->win, WIDTH_2, HEIGHT /  2);
 	return (data);
 }
 
@@ -59,6 +60,7 @@ int	main(int ac, char **av)
 
 	mlx_hook(data->win->win, 2, 1L << 0, key_hook, data);
 	mlx_hook(data->win->win, 17, 0, my_close, data->tst);
+	mlx_hook(data->win->win, 6, 0, mouse_hook, data);
 	
 	mlx_loop(data->win->mlx);
 	// mlx_loop(data->tst->mlx);
