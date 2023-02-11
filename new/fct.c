@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/06 12:19:23 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:33:12 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	put_error(char *s, size_t len)
 {
 	write(2, s, len);
-	exit (0);
+	exit (1);
 }
 
 //	is protected (exit in case of error)
