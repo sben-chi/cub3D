@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 12:48:24 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 17:22:42 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "./mlx/mlx.h"
 # include <string.h>
 # include <limits.h>
 # include "stdbool.h"
@@ -41,6 +41,7 @@ int		key_hook(int key, t_data *d);
 void	draw_walls(t_data *data, t_image *cub, double *rays);
 void	new_image(t_data *data, t_window *win);
 void	init_data_tst(t_data *data);
+int		mouse_hook(int x, int y, t_data *data);
 
 
 // to delete

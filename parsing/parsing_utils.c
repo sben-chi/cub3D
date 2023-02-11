@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/06 11:40:27 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:28:35 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ short	element(t_data *data, char *element, int len)
 		check_texture(data, i, element + 2, len);
 	else
 	{
-		check_colors(data, (5 - i), element + 1, len);
+		check_colors(data, (5 == i), element + 1, len);
 		free(element);
 	}
 	return (1);
