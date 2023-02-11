@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 17:15:39 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:32:48 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	get_color(t_data *data, char *element, int k, int len)
 
 	j = 4;
 	i = -1;
-	printf("> %d\n", k);
 	while (--j > 0)
 		cl[j - 1] = -1;
 	while (++i < len)
@@ -81,7 +80,7 @@ short	element(t_data *data, char *element, int len)
 		check_texture(data, i, element + 2, len);
 	else
 	{
-		check_colors(data, (i == 5), element + 1, len);
+		check_colors(data, (5 == i), element + 1, len);
 		free(element);
 	}
 	return (1);

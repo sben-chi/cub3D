@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 16:49:45 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:25:14 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static double	is_equale(double n1, double n2)
 {
-	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.001)));
+	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.01)));
 }
 
 double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data *data)
@@ -38,7 +38,7 @@ double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data
 		info[0] = p[0] + sym[0] * dx;
 		info[1] = p[1] + sym[1] * dy;
 		
-		if (info[1] >= (data->lines * TILE) || info[1] < 0 || info[0] > (data->max - 1) * TILE || info[0] < 0 )
+		if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0 )
 		{
 			free(info);
 			return (NULL);
@@ -75,7 +75,7 @@ double	*get_intersection_y(double *p, double teta, short *sym, bool **arr,t_data
 		info[0] = p[0] + sym[0] * dx;
 		info[1] = p[1] + sym[1] * dy;
 
-		if (info[1] >= (data->lines * TILE) || info[1] < 0 || info[0] > (data->max - 1) * TILE || info[0] < 0 )
+		if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0 )
 		{
 			free(info);
 			return (NULL);
@@ -117,10 +117,10 @@ bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 	}
 	
 	// delete later -----------
-	if (inter)
-		draw_tst(data, ptr_y);
-	else
-		draw_tst(data, ptr_x);
+	// if (inter)
+	// 	draw_tst(data, ptr_y);
+	// else
+	// 	draw_tst(data, ptr_x);
 	// -------------------------
 
 	free(ptr_x);
@@ -150,19 +150,3 @@ void	draw_view_angle(t_data *data, t_window *win)
 		data->dir[k] += ('E' * !data->dir[k]);
 	}
 }
-
-// void	draw_view_angle(t_data *data, t_window *win)
-// {
-// 	short		k;
-// 	double		teta;
-
-// 	k = WIDTH_2;
-// 	data->teta = angle_round(data->teta);
-// 	teta = data->teta;
-// 	while (--k >= -WIDTH_2)
-// 	{
-// 		teta = data->teta + k * ANGLE;
-// 		teta = angle_round(teta);
-// 		data->inter[WIDTH_2 + k] = get_dest(data->tst->image, data->p, teta, data->rays + WIDTH_2 + k, data->map_arr, data);
-// 	}
-// }

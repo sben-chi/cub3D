@@ -28,15 +28,15 @@ void	new_image_tst(t_data *data, t_window *win)
 	draw_map(data, win->image);
 	draw_view_angle(data, win);
 	mlx_clear_window(win->mlx, win->win);
-	mlx_put_image_to_window (win->mlx, win->win, img, 0, 0);
+	// mlx_put_image_to_window (win->mlx, win->win, img, 0, 0);
 	(tmp) && mlx_destroy_image(win->mlx, tmp);
 }
 
 void	init_data_tst(t_data *data)
 {
 	t_window *win = (t_window *) my_calloc(1, sizeof(t_window));
-	win->mlx = data->win->mlx;
-	win->win = mlx_new_window(win->mlx, (data->max - 1) * TILE, (data->lines) * TILE, "map");
+	// win->mlx = data->win->mlx;
+	// win->win = mlx_new_window(win->mlx, (data->max - 1) * TILE, (data->lines) * TILE, "map");
 	win->image = my_calloc(1, sizeof(t_image));
 	data->tst = win;
 }

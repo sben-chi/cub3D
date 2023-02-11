@@ -1,7 +1,7 @@
-NO ../map_test/oldWall.xpm
-SO ../map_test/oldWall.xpm
-WE ../map_test/brick_windows.xpm
-EA ../map_test/brick_windows.xpm
+NO map_test/oldWall.xpm
+SO map_test/oldWall.xpm
+WE map_test/brick_windows.xpm
+EA map_test/brick_windows.xpm
 
 
 F 231,240,245
