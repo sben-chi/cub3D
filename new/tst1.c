@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 21:43:23 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 21:56:29 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ double	*get_intersection(t_data *data, double teta, short *sym, bool x_y)
 	}
 }
 
-bool	get_dest(t_data *data, double *rays, double *diff, double teta)
+bool	get_dest(t_data *data, double teta, short k)
 {
 	bool	inter;
 	short	sym[2];
@@ -69,16 +69,16 @@ bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 	sym[1] = ((teta < PI) - (teta >= PI));
 	ptr_x = get_intersection(data, teta, sym, 0);
 	ptr_y = get_intersection(data, teta, sym, 1);
-	inter = (!ptr_x || (ptr_y && (ptr_x[3] >= ptr_y[3])));
-	if (inter)
+	data->inter[k] = (!ptr_x || (ptr_y && (ptr_x[3] >= ptr_y[3])));
+	if (data->inter[k])
 	{
-		(*diff) = ptr_y[0];
-		(*rays) = ptr_y[3];
+		data->diff[k] = ptr_y[0];
+		data->rays[k] = ptr_y[3];
 	}
 	else
 	{
-		(*diff) = ptr_x[1];
-		(*rays) = ptr_x[3];
+		data->diff[k] = ptr_x[1];
+		data->rays[k] = ptr_x[3];
 	}
 	free(ptr_x);
 	free(ptr_y);
@@ -98,7 +98,7 @@ void	get_view_info(t_data *data)
 			teta += (2 * PI);
 		while ((teta > 0) && (teta >= (2 * PI)))
 			teta -= (2 * PI);
-		data->inter[k] = get_dest(data, data->rays + k, data->diff + k, teta);
+		get_dest(data, teta, k);
 		teta -= ANGLE;
 		if (data->inter[k])
 			data->dir[k] = (teta <= PI) * 'S' + (teta > PI) * 'N';
