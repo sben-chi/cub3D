@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 16:08:39 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 16:49:45 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 	inter = (!ptr_x || (ptr_y && (ptr_x[3] >= ptr_y[3])));
 	if (inter)
 	{
-		(*diff) = ptr_y[1];
+		(*diff) = ptr_y[0];
 		(*rays) = ptr_y[3];
 	}
 	else
 	{
-		(*diff) = ptr_x[0];
+		(*diff) = ptr_x[1];
 		(*rays) = ptr_x[3];
 	}
 	
@@ -135,7 +135,7 @@ void	draw_view_angle(t_data *data, t_window *win)
 
 	k = WIDTH;
 	teta = data->teta + WIDTH_2 * ANGLE;
-	while (--k)
+	while (--k >= 0)
 	{
 		while (teta < 0)
 			teta += (2 * PI);
@@ -144,10 +144,10 @@ void	draw_view_angle(t_data *data, t_window *win)
 		data->inter[k] = get_dest(data, data->rays + k, data->diff + k, teta);
 		teta -= ANGLE;
 		if (data->inter[k])
-			data->dir[k] = (teta <= PI) * 'N' + (teta > PI) * 'S';
+			data->dir[k] = (teta <= PI) * 'S' + (teta > PI) * 'N';
 		else
 			data->dir[k] = ((teta <= _3PI_2) && (teta > PI_2)) * 'W';
-		data->dir += ('E' * !data->dir);
+		data->dir[k] += ('E' * !data->dir[k]);
 	}
 }
 

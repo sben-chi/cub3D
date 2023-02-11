@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:46 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 14:00:57 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:21:45 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_walls(t_data *data, t_image *cub, double *rays)
 		y[1] = dst_proj * (dst_proj > 0);
 		draw_segment(cub, x, y, data->colors[0]);
 		y[1] += wall_h;
-		draw_segment(cub, x, y, WALL * data->inter[x]);
+		textures(data, x, y, wall_h);
 		y[1] = HEIGHT;
 		draw_segment(cub, x, y, data->colors[1]);
 	}
