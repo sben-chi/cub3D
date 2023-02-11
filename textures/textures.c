@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 13:07:52 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 13:13:49 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 15:29:32 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ void	textures(t_data *dt, t_image *img, long long x, long long *y, double wall_h
 
 	img_text = get_imgs_data(dt, x);
 	img_x = (long)round(dt->lxatyat[x]) % TILE;
+	// img_x = (long)round(dt->lxatyat[x]) % img_text->w_img;
 	while ((y[0] < y[1]) && (y[0] < HEIGHT))
 	{
 		img_y = ((y[0] - ((HEIGHT - wall_h) / 2)) * (TILE / wall_h));
+		// img_y = ((y[0] - ((HEIGHT - wall_h) / 2)) * (img_text->h_img / wall_h));
 		tex_color = my_get_pixel_color(img_text,
 				img_x, img_y);
 		dst = img->address + (y[0] * img->len + x * img->bits / 8);
