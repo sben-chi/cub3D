@@ -1,0 +1,136 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tst.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
+/*   Updated: 2023/02/11 20:16:36 by irhesri          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub3D.h"
+
+static double	is_equale(double n1, double n2)
+{
+	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.01)));
+}
+
+short	get_inter(t_data *data, double dx, double dy, double *info)
+{
+	info[0] = data->p[0] + dx;
+	info[1] = data->p[1] + dy;
+	if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0)
+	{
+		free(info);
+		return (-1);
+	}
+	if (data->map_arr[(int)(info[1] / TILE)][(int)(info[0] / TILE)])
+	{
+		// info[0] -= (sym[0] == 1);
+		// info[1] -= (sym[1] == 1);
+		info[2] = fabs(dx * cos(data->teta) + dy * sin(data->teta));
+		return (1);
+	}
+	return (0);
+}
+
+double	*get_intersection_x(t_data *data, double *p, double teta, short *sym)
+{
+	short	b;
+	double	dx;
+	double	dy;
+	double	*info;
+
+	if (is_equale(teta, PI_2) || is_equale(teta, _3PI_2))
+		return (NULL);
+	info = my_calloc(3, sizeof(double));
+	dx = fabs((floor(p[0] / TILE + (sym[0] == 1)) * TILE - p[0]));
+	while (1)
+	{
+		dy = fabs(dx * tan(teta));
+		b = get_inter(data, dx * sym[0], dy * sym[1], info);
+		if (b == -1)
+			return (NULL);
+		if (b)
+			break ;
+		dx += TILE;
+	}
+	return (info);
+}
+
+double	*get_intersection_y(t_data *data, double *p, double teta, short *sym)
+{
+	short	b;
+	double	dx;
+	double	dy;
+	double	*info;
+
+	if (is_equale(teta, 0) || is_equale(teta, PI))
+		return (NULL);
+	info = my_calloc(3, sizeof(double));
+	dy = fabs((floor(p[1] / TILE + (sym[1] == 1)) * TILE - p[1]));
+	while (1)
+	{
+		dx = fabs(dy / tan(teta));
+		b = get_inter(data, dx * sym[0], dy * sym[1], info);
+		if (b == -1)
+			return (NULL);
+		if (b)
+			break ;
+		dy += TILE;
+	}
+	return (info);
+}
+
+bool	get_dest(t_data *data, double *rays, double *diff, double teta)
+{
+	bool	inter;
+	short	sym[2];
+	double	*ptr_x;
+	double	*ptr_y;
+
+	sym[0] = ((teta > (3 * PI / 2)) || (teta < (PI / 2)));
+	sym[0] -= !sym[0];
+	sym[1] = ((teta < PI) - (teta >= PI));
+	ptr_x = get_intersection_x(data, data->p, teta, sym);
+	ptr_y = get_intersection_y(data, data->p, teta, sym);
+	inter = (!ptr_x || (ptr_y && (ptr_x[2] >= ptr_y[2])));
+	if (inter)
+	{
+		(*diff) = ptr_y[0];
+		(*rays) = ptr_y[2];
+	}
+	else
+	{
+		(*diff) = ptr_x[1];
+		(*rays) = ptr_x[2];
+	}
+	free(ptr_x);
+	free(ptr_y);
+	return (inter);
+}
+
+void	get_view_info(t_data *data)
+{
+	short		k;
+	double		teta;
+
+	k = WIDTH;
+	teta = data->teta + WIDTH_2 * ANGLE;
+	while (--k >= 0)
+	{
+		while (teta < 0)
+			teta += (2 * PI);
+		while ((teta > 0) && (teta >= (2 * PI)))
+			teta -= (2 * PI);
+		data->inter[k] = get_dest(data, data->rays + k, data->diff + k, teta);
+		teta -= ANGLE;
+		if (data->inter[k])
+			data->dir[k] = (teta <= PI) * 'S' + (teta > PI) * 'N';
+		else
+			data->dir[k] = ((teta <= _3PI_2) && (teta > PI_2)) * 'W';
+		data->dir[k] += ('E' * !data->dir[k]);
+	}
+}

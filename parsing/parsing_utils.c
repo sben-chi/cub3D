@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 17:28:35 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:32:48 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	check_texture(t_data *data, int k, char *element, int len)
 
 short	element(t_data *data, char *element, int len)
 {
-	static char	*tab[8] = {"NO ", "SO ", "EA ", "WE ", "C ", "F ", NULL};
+	static char	*tab[7] = {"NO ", "SO ", "EA ", "WE ", "C ", "F ", NULL};
 	int			i;
 
 	i = 0;

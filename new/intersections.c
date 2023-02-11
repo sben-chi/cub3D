@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:16:11 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:55:36 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ static double	is_equale(double n1, double n2)
 	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.01)));
 }
 
-double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data *data)
+double	*get_intersection_x(t_data *data, double *p, double teta, short *sym)
 {
 	size_t	px;
 	double	dx;
 	double	dy;
-	double	hyp;
 	double	*info;
 
 	info = my_calloc(4, sizeof(double));
@@ -37,13 +36,12 @@ double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data
 
 		info[0] = p[0] + sym[0] * dx;
 		info[1] = p[1] + sym[1] * dy;
-		
 		if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0 )
 		{
 			free(info);
 			return (NULL);
 		}
-		if (arr[(int)(info[1] / TILE)][px])
+		if (data->map_arr[(int)(info[1] / TILE)][px])
 		{
 			info[0] -= (sym[0] == 1);
 			info[1] -= (sym[1] == 1);
@@ -54,12 +52,11 @@ double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data
 	}
 }
 
-double	*get_intersection_y(double *p, double teta, short *sym, bool **arr,t_data *data)
+double	*get_intersection_y(t_data *data, double *p, double teta, short *sym)
 {
 	size_t	py;
 	double	dx;
 	double	dy;
-	double	hyp;
 	double	*info;
 
 	if (is_equale(teta, 0) || is_equale(teta, PI))
@@ -71,16 +68,14 @@ double	*get_intersection_y(double *p, double teta, short *sym, bool **arr,t_data
 	{
 		py += sym[1];
 		dx = fabs(dy / tan(teta));
-
 		info[0] = p[0] + sym[0] * dx;
 		info[1] = p[1] + sym[1] * dy;
-
 		if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0 )
 		{
 			free(info);
 			return (NULL);
 		}
-		if (arr[py][(int)(info[0] / TILE)])
+		if (data->map_arr[py][(int)(info[0] / TILE)])
 		{
 			info[0] -= (sym[0] == 1);
 			info[1] -= (sym[1] == 1);
@@ -101,9 +96,8 @@ bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 	sym[0] = ((teta > (3 * PI / 2)) || (teta < (PI / 2)));
 	sym[0] -= !sym[0];
 	sym[1] = ((teta < PI) - (teta >= PI));
-
-	ptr_x = get_intersection_x(data->p, teta, sym, data->map_arr, data);
-	ptr_y = get_intersection_y(data->p, teta, sym, data->map_arr, data);
+	ptr_x = get_intersection_x(data, data->p, teta, sym);
+	ptr_y = get_intersection_y(data, data->p, teta, sym);
 	inter = (!ptr_x || (ptr_y && (ptr_x[3] >= ptr_y[3])));
 	if (inter)
 	{
@@ -115,20 +109,12 @@ bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 		(*diff) = ptr_x[1];
 		(*rays) = ptr_x[3];
 	}
-	
-	// delete later -----------
-	// if (inter)
-	// 	draw_tst(data, ptr_y);
-	// else
-	// 	draw_tst(data, ptr_x);
-	// -------------------------
-
 	free(ptr_x);
 	free(ptr_y);
 	return (inter);
 }
 
-void	draw_view_angle(t_data *data, t_window *win)
+void	get_view_info(t_data *data)
 {
 	short		k;
 	double		teta;

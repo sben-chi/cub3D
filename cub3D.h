@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 17:56:37 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 20:10:41 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,32 +27,26 @@
 # include "./macros.h"
 
 
-// void	draw_lines(t_segment *seg, t_window *win);
-bool	**get_map_arr(t_map *map, size_t lines, size_t max);
-void	draw_view_angle(t_data *data, t_window *win);
-// void	draw_map(t_image *img, t_data *data);
 
-
+// basic fcts
 void	*my_calloc(size_t count, size_t size);
 bool	put_error(char *s, size_t len);
+bool	**get_map_arr(t_map *map, size_t lines, size_t max);
 
-int		my_close(t_window *win);
-int		key_hook(t_data *d);
+// update image
+void	get_view_info(t_data *data);
 void	draw_walls(t_data *data, t_image *cub, double *rays);
 void	new_image(t_data *data, t_window *win);
-void	init_data_tst(t_data *data);
+
+// hooks functions
+int		key_press(int key, t_data *data);
+int		key_release(int key, t_data *data);
 int		mouse_hook(int x, int y, t_data *data);
-int	key_press(int key, t_data *data);
-int	key_release(int key, t_data *data);
+int		update_player_data(t_data *d);
+int		my_close(t_window *win);
 
 
-// to delete
-void	draw_tst(t_data *data, double *ptr);
-void	draw_map(t_data *data, t_image *img);
-void	seg_init(t_segment *seg, t_image *map);
-void	new_image_tst(t_data *data, t_window *win);
-//-----------
-
+// double	*get_inter(t_data *data, double dx, double dy, short *sym);
 
 
 
@@ -68,7 +62,7 @@ void	parse_time(t_data *data, int fd);
 short	element(t_data *data, char *element, int len);
 
 //------------new modif from saida
-void	textures(t_data *dt, t_image *img, long long x, long long *y, double wall_h);
+void	textures(t_data *dt, long long x, long long *y, double wall_h);
 //--------------------------------
 
 #endif
