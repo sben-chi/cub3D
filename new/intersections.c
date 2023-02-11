@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 14:00:46 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:08:39 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static double	is_equale(double n1, double n2)
 {
-	return ((n1 >= (n2 - 0.1)) && (n1 <= (n2 - 0.1)));
+	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.001)));
 }
 
-double	*get_intersection_x(t_image *map, double *p, double teta, short *sym, bool **arr,t_data *data)
+double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data *data)
 {
 	size_t	px;
 	double	dx;
@@ -26,7 +26,7 @@ double	*get_intersection_x(t_image *map, double *p, double teta, short *sym, boo
 	double	*info;
 
 	info = my_calloc(4, sizeof(double));
-	if (is_equale(fabs(teta), PI_2) || is_equale(fabs(teta), _3PI_2))
+	if (is_equale(teta, PI_2) || is_equale(teta, _3PI_2))
 		return (NULL);
 	px = floor(p[0] / TILE);
 	dx = fabs((floor(p[0] / TILE + (sym[0] == 1)) * TILE - p[0]));
@@ -54,7 +54,7 @@ double	*get_intersection_x(t_image *map, double *p, double teta, short *sym, boo
 	}
 }
 
-double	*get_intersection_y(t_image *map, double *p, double teta, short *sym, bool **arr,t_data *data)
+double	*get_intersection_y(double *p, double teta, short *sym, bool **arr,t_data *data)
 {
 	size_t	py;
 	double	dx;
@@ -62,7 +62,7 @@ double	*get_intersection_y(t_image *map, double *p, double teta, short *sym, boo
 	double	hyp;
 	double	*info;
 
-	if (is_equale(fabs(teta), 0) || is_equale(fabs(teta), PI))
+	if (is_equale(teta, 0) || is_equale(teta, PI))
 		return (NULL);
 	info = my_calloc(4, sizeof(double));
 	py = floor(p[1] / TILE);
@@ -91,26 +91,30 @@ double	*get_intersection_y(t_image *map, double *p, double teta, short *sym, boo
 	}
 }
 
-bool	get_dest(t_image *map, double *p, double teta, double *rays, bool **arr, t_data *data)
+bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 {
 	bool	inter;
 	short	sym[2];
 	double	*ptr_x;
 	double	*ptr_y;
 
-	sym[0] = (teta > 0) && ((teta > (3 * PI / 2)) || (teta < (PI / 2)));
-	sym[0] += (teta <= 0) && ((teta > (-PI / 2)) || (teta < (3 * -PI / 2)));
+	sym[0] = ((teta > (3 * PI / 2)) || (teta < (PI / 2)));
 	sym[0] -= !sym[0];
-	sym[1] = (teta > 0) * ((teta < PI) - (teta >= PI));
-	sym[1] += (teta <= 0) * ((teta < -PI) - (teta >= -PI));
+	sym[1] = ((teta < PI) - (teta >= PI));
 
-	ptr_x = get_intersection_x(map, p, teta, sym, arr, data);
-	ptr_y = get_intersection_y(map, p, teta, sym, arr, data);
+	ptr_x = get_intersection_x(data->p, teta, sym, data->map_arr, data);
+	ptr_y = get_intersection_y(data->p, teta, sym, data->map_arr, data);
 	inter = (!ptr_x || (ptr_y && (ptr_x[3] >= ptr_y[3])));
 	if (inter)
+	{
+		(*diff) = ptr_y[1];
 		(*rays) = ptr_y[3];
+	}
 	else
+	{
+		(*diff) = ptr_x[0];
 		(*rays) = ptr_x[3];
+	}
 	
 	// delete later -----------
 	if (inter)
@@ -133,12 +137,17 @@ void	draw_view_angle(t_data *data, t_window *win)
 	teta = data->teta + WIDTH_2 * ANGLE;
 	while (--k)
 	{
-		while ((teta < 0) && (teta <= (2 * -PI)))
+		while (teta < 0)
 			teta += (2 * PI);
 		while ((teta > 0) && (teta >= (2 * PI)))
 			teta -= (2 * PI);
-		data->inter[k] = get_dest(data->tst->image, data->p, teta, data->rays + k, data->map_arr, data);
+		data->inter[k] = get_dest(data, data->rays + k, data->diff + k, teta);
 		teta -= ANGLE;
+		if (data->inter[k])
+			data->dir[k] = (teta <= PI) * 'N' + (teta > PI) * 'S';
+		else
+			data->dir[k] = ((teta <= _3PI_2) && (teta > PI_2)) * 'W';
+		data->dir += ('E' * !data->dir);
 	}
 }
 

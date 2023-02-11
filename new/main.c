@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 14:00:51 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 16:04:03 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_data	*init_data_(char *file_name)
 	
 	data->inter = my_calloc(WIDTH, sizeof(bool));
 	data->rays = my_calloc(WIDTH, sizeof(double));
+	data->diff = my_calloc(WIDTH, sizeof(double));
+	data->dir = my_calloc(WIDTH, sizeof(short));
 	
 	win = (t_window *) my_calloc(1, sizeof(t_window));
 	win->mlx = mlx_init();
