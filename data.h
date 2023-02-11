@@ -6,20 +6,26 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/01/30 12:38:05 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 14:01:47 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
 
+# include "stdbool.h"
+
 typedef struct s_image
 {
-	int		bit;
-	int		size;
+	int		bits;
+	int		len;
 	int		endian;
 	char	*address;
 	void	*img;
+
+	// for any size of xpm file
+	int h_img;
+	int w_img;
 } t_image;
 
 typedef struct s_window
@@ -44,10 +50,15 @@ typedef struct s_data
 	t_map		*map;
 	size_t		max;
 	size_t		lines;
+
+	bool		*inter;
+	bool		**map_arr;
+	double		*rays;
 	double		teta;
+	double		p[2];
 	t_window	*win;
-	long long	p[2];
-	// int	**map_arr;
+	t_window	*tst;	// 2D MAP (delete)
+	
 } t_data;
 
 typedef struct s_segment
