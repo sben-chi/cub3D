@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 16:00:56 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:44:01 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ typedef struct s_data
 
 	bool		*inter;
 	bool		**map_arr;
-	short		*dir;
-	double		*diff;
 	double		*rays;
+	double		*diff;
+	short		*dir;
 	double		teta;
 	double		p[2];
 	t_window	*win;

@@ -1,11 +1,11 @@
-NO ../map_test/colorstone.xpm
-SO ../map_test/colorstone.xpm
-WE ../map_test/colorstone.xpm
-EA ../map_test/colorstone.xpm
+NO ../map_test/oldWall.xpm
+SO ../map_test/oldWall.xpm
+WE ../map_test/brick_windows.xpm
+EA ../map_test/brick_windows.xpm
 
 
-F 220,100,0
-C 225,30,0
+F 231,240,245
+C 97,125,191
 
 
 1111111111111111111111111111111

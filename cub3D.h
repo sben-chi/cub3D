@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 12:48:24 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:21:22 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	parse_time(t_data *data, int fd);
 short	element(t_data *data, char *element, int len);
 
 //------------new modif from saida
-void	textures(t_data *dt, t_image *img, long long x, long long *y, double wall_h);
+void	textures(t_data *dt, long long x, long long *y, double wall_h);
 //--------------------------------
 
 #endif
