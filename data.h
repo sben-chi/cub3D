@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 16:00:56 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:55:28 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ typedef struct s_map
 	struct s_map	*prev;
 } t_map;
 
+typedef	struct s_keys
+{
+	bool	esc;
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
+	bool	l_rotate;
+	bool	r_rotate;
+} t_keys;
+
 typedef struct s_data
 {
 	int			colors[2];
@@ -54,6 +65,7 @@ typedef struct s_data
 	bool		*inter;
 	bool		**map_arr;
 	short		*dir;
+	t_keys		*keys;
 	double		*diff;
 	double		*rays;
 	double		teta;

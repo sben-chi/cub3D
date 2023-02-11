@@ -6,11 +6,11 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 17:30:13 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:22:00 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3D.h"
+#include "cub3D.h"
 
 t_data	*init_data_(char *file_name)
 {
@@ -28,6 +28,7 @@ t_data	*init_data_(char *file_name)
 	data->rays = my_calloc(WIDTH, sizeof(double));
 	data->diff = my_calloc(WIDTH, sizeof(double));
 	data->dir = my_calloc(WIDTH, sizeof(short));
+	data->keys = my_calloc(1, sizeof(t_keys));
 	
 	win = (t_window *) my_calloc(1, sizeof(t_window));
 	win->mlx = mlx_init();
@@ -47,10 +48,10 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		put_error("wrong arguments\n", 16);
 	data = init_data_(av[1]);
-	init_data_tst(data);
+	// init_data_tst(data);
 	// data->tst = NULL;
 	// if (data->tst)
-	new_image_tst(data, data->tst);
+	// new_image_tst(data, data->tst);
 	new_image(data, data->win);
 	// new_image(data, win, (data->max - 1) * TILE, (data->lines) * TILE);
 	// mlx_put_image_to_window (data->tst->mlx, data->tst->win, data->tst->image->img, 0, 0);
@@ -58,9 +59,11 @@ int	main(int ac, char **av)
 	//----------
 
 
-	mlx_hook(data->win->win, 2, 1L << 0, key_hook, data);
-	mlx_hook(data->win->win, 17, 0, my_close, data->tst);
+	mlx_hook(data->win->win, 2, 0, key_press, data);
+	mlx_hook(data->win->win, 3, 0, key_release, data);
 	mlx_hook(data->win->win, 6, 0, mouse_hook, data);
+	mlx_hook(data->win->win, 17, 0, my_close, data->tst);
+	mlx_loop_hook(data->win->mlx, key_hook, data);
 	
 	mlx_loop(data->win->mlx);
 	// mlx_loop(data->tst->mlx);

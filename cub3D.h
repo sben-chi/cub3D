@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 17:22:42 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 17:56:37 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ void	*my_calloc(size_t count, size_t size);
 bool	put_error(char *s, size_t len);
 
 int		my_close(t_window *win);
-int		key_hook(int key, t_data *d);
+int		key_hook(t_data *d);
 void	draw_walls(t_data *data, t_image *cub, double *rays);
 void	new_image(t_data *data, t_window *win);
 void	init_data_tst(t_data *data);
 int		mouse_hook(int x, int y, t_data *data);
+int	key_press(int key, t_data *data);
+int	key_release(int key, t_data *data);
 
 
 // to delete

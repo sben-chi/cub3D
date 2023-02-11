@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 16:50:56 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:16:11 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static double	is_equale(double n1, double n2)
 {
-	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.001)));
+	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.01)));
 }
 
 double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data *data)
@@ -38,7 +38,7 @@ double	*get_intersection_x(double *p, double teta, short *sym, bool **arr,t_data
 		info[0] = p[0] + sym[0] * dx;
 		info[1] = p[1] + sym[1] * dy;
 		
-		if (info[1] >= (data->lines * TILE) || info[1] < 0 || info[0] > (data->max - 1) * TILE || info[0] < 0 )
+		if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0 )
 		{
 			free(info);
 			return (NULL);
@@ -75,7 +75,7 @@ double	*get_intersection_y(double *p, double teta, short *sym, bool **arr,t_data
 		info[0] = p[0] + sym[0] * dx;
 		info[1] = p[1] + sym[1] * dy;
 
-		if (info[1] >= (data->lines * TILE) || info[1] < 0 || info[0] > (data->max - 1) * TILE || info[0] < 0 )
+		if (info[1] >= (data->lines * TILE) || info[1] <= 0 || info[0] >= (data->max - 1) * TILE || info[0] <= 0 )
 		{
 			free(info);
 			return (NULL);
@@ -117,10 +117,10 @@ bool	get_dest(t_data *data, double *rays, double *diff, double teta)
 	}
 	
 	// delete later -----------
-	if (inter)
-		draw_tst(data, ptr_y);
-	else
-		draw_tst(data, ptr_x);
+	// if (inter)
+	// 	draw_tst(data, ptr_y);
+	// else
+	// 	draw_tst(data, ptr_x);
 	// -------------------------
 
 	free(ptr_x);
