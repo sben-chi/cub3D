@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 21:56:29 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 22:15:16 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,11 @@ double	*get_intersection(t_data *data, double teta, short *sym, bool x_y)
 	}
 }
 
-bool	get_dest(t_data *data, double teta, short k)
+void	get_dest(t_data *data, double teta, short k, short *sym)
 {
-	bool	inter;
-	short	sym[2];
 	double	*ptr_x;
 	double	*ptr_y;
 
-	sym[0] = ((teta > (_3PI_2)) || (teta < PI_2));
-	sym[0] -= !sym[0];
-	sym[1] = ((teta < PI) - (teta >= PI));
 	ptr_x = get_intersection(data, teta, sym, 0);
 	ptr_y = get_intersection(data, teta, sym, 1);
 	data->inter[k] = (!ptr_x || (ptr_y && (ptr_x[3] >= ptr_y[3])));
@@ -82,12 +77,12 @@ bool	get_dest(t_data *data, double teta, short k)
 	}
 	free(ptr_x);
 	free(ptr_y);
-	return (inter);
 }
 
 void	get_view_info(t_data *data)
 {
 	short		k;
+	short		sym[2];
 	double		teta;
 
 	k = WIDTH;
@@ -98,7 +93,10 @@ void	get_view_info(t_data *data)
 			teta += (2 * PI);
 		while ((teta > 0) && (teta >= (2 * PI)))
 			teta -= (2 * PI);
-		get_dest(data, teta, k);
+		sym[0] = ((teta > (_3PI_2)) || (teta < PI_2));
+		sym[0] -= !sym[0];
+		sym[1] = ((teta < PI) - (teta >= PI));
+		get_dest(data, teta, k, sym);
 		teta -= ANGLE;
 		if (data->inter[k])
 			data->dir[k] = (teta <= PI) * 'S' + (teta > PI) * 'N';
