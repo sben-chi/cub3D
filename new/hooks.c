@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:27 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:02:01 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:30:44 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,5 @@ int	mouse_hook(int x, int y, t_data *data)
 	data->teta += 0.1 * ((x > WIDTH_2) - (x < WIDTH_2));
 	mlx_mouse_hide();
 	mlx_mouse_move(data->win->win, WIDTH_2, HEIGHT /  2);
-	// new_image_tst(data, data->tst); // to delete
-	// new_image(data, data->win);
 	return (1);
 }

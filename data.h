@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 17:55:28 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/11 19:31:02 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,6 @@ typedef struct s_data
 	double		teta;
 	double		p[2];
 	t_window	*win;
-	t_window	*tst;	// 2D MAP (delete)
-	
 } t_data;
-
-typedef struct s_segment
-{
-	short			b;
-	short			add[2];
-	long			color;
-	long long		xi;
-	long long		yi;
-	long long		xf;
-	long long		yf;
-} t_segment;
 
 #endif
