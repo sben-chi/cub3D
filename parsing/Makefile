@@ -1,6 +1,8 @@
-NAME = cub
-CFLAGS =  -I/usr/include -Imlx_linux -O3#-fsanitize=address -g
+NAME = cub3D
+NAME_B = cub3D_bonus
 CC = gcc
+CFLAGS		= -fsanitize=address -g -lm -lmlx -lbsd -lXext -lX11 -I /usr/local/include
+LDFLAGS		= -L /usr/local/lib 
 F =  init_data.c parsing_utils.c gnl.c main.c parsing.c parsing_utils2.c
 
 OFILES = ${F:.c=.o}
@@ -8,7 +10,7 @@ OFILES = ${F:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OFILES)
-	$(CC) $(CFLAGS) $(OFILES) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) 
+	$(CC) $(OFILES)  -o $(NAME) $(CFLAGS) $(LDFLAGS)
 re: fclean all
 
 fclean:	clean

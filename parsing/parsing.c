@@ -6,11 +6,11 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/26 19:07:04 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:12:59 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3D.h"
 
 short	check_maptime(t_data *data)
 {
@@ -31,7 +31,7 @@ short	exist_err(t_map *t, int i)
 	short	b;
 
 	a = (t->next && ((t->next->llen < (size_t)i) || t->next->line[i] == ' '
-				|| t->next->line[i] == '\n'));
+				|| t->next->line[i] == '\n' || !t->next->line[i]));
 	b = (t->prev && (t->prev->llen < (size_t)i || t->prev->line[i] == ' '
 				|| t->prev->line[i] == '\n'));
 	return (!i || (size_t)i == t->llen - 2 || t->line[i - 1] == ' '
@@ -47,13 +47,14 @@ short	is_valid(t_map *t, t_data *data, int i)
 	while (str[b] && str[b] != t->line[i])
 		b++;
 	if ((((t->line[i] == '0') || t->line[i] == 'N') && exist_err(t, i))
-		|| b == 7 || (b < 4 && data->player[0] != -1))
+		|| b == 7 || (b < 4 && data->teta != -1))
 		return (0);
 	if (b < 4)
 	{
-		data->player[0] = t->line[i];
-		data->player[1] = i + 1;
-		data->player[2] = data->lines;
+		data->p[0] = i * TILE + TILE / 2;
+		data->p[1] = data->lines * TILE + TILE / 2;
+		data->teta = (3 * PI / 2) * (t->line[i] == 'S')
+			+  PI * (t->line[i] == 'N') + (PI / 2) * (t->line[i] == 'W');
 	}
 	return (1);
 }
@@ -70,16 +71,13 @@ int	check_lines(t_data *data)
 	{
 		i = -1;
 		b = (!t->prev || !t->next);
-		data->lines++;
 		while (++i < (int)t->llen - 1)
-		{
-			if ((b && t->line[i] != '1' && t->line[i] != ' ')
-				|| !is_valid(t, data, i))
+			if ((b && t->line[i] != '1' && t->line[i] != ' ') || !is_valid(t, data, i))
 				exit(printf("Error: Invalid map\n"));
-		}
+		data->lines++;
 		t = t->next;
 	}
-	if (data->player[0] < 0)
+	if (data->p[0] < 0)
 		exit(printf("Error: Invalid map\n"));
 	return (1);
 }

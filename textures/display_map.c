@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3D.h"
 
 void	check_and_put(int i, int j, t_info *gm_info)
 {
