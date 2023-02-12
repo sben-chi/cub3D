@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/11 13:07:52 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 19:21:00 by sben-chi         ###   ########.fr       */
+/*   Created: 2023/02/06 12:14:46 by irhesri           #+#    #+#             */
+/*   Updated: 2023/02/12 13:57:58 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,43 @@ void	textures(t_data *dt, long long x, long long *y, double wall_h)
 		dst = win_img->address + (y[0] * win_img->len + x * win_img->bits / 8);
 		*(unsigned int *) dst = my_get_pixel_color(img_text, img_x, img_y);
 		++y[0];
+	}
+}
+
+static void	draw_segment(t_image *img, long long x, long long *y, long color)
+{
+	char	*dst;
+
+	while ((y[0] < y[1]) && (y[0] < HEIGHT))
+	{
+		dst = img->address + (y[0] * img->len + x * img->bits / 8);
+		*(unsigned int *) dst = color;
+		++y[0];
+	}
+}
+
+void	draw_walls(t_data *data, t_image *cub, double *rays)
+{
+	int			k;
+	double		dst_proj;
+	double		wall_h;
+	long long	x;
+	long long	y[2];
+
+	k = (WIDTH / 2);
+	x = -1;
+	while (++x < WIDTH)
+	{
+		k += (x > (WIDTH / 2)) - (x <= (WIDTH / 2));
+		(rays[x] < 1) && (rays[x] = 1);
+		wall_h = round((TILE / rays[x]) * ((WIDTH / 2) / tan((PI / 6))));
+		dst_proj = round((HEIGHT - wall_h) / 2);
+		y[0] = 0;
+		y[1] = dst_proj * (dst_proj > 0);
+		draw_segment(cub, x, y, data->colors[0]);
+		y[1] += wall_h;
+		textures(data, x, y, wall_h);
+		y[1] = HEIGHT;
+		draw_segment(cub, x, y, data->colors[1]);
 	}
 }

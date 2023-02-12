@@ -6,16 +6,11 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:36 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:21:26 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 14:04:51 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-static double	is_equale(double n1, double n2)
-{
-	return ((n1 >= (n2 - 0.01)) && (n1 <= (n2 - 0.01)));
-}
 
 double	*get_intersection_x(t_data *dt, double *p, double teta, short *sy)
 {
@@ -33,7 +28,7 @@ double	*get_intersection_x(t_data *dt, double *p, double teta, short *sy)
 		ray[0] = p[0] + sy[0] * d[0];
 		ray[1] = p[1] + sy[1] * d[1];
 		if ((ray[1] >= (dt->lines * TILE)) || (ray[1] <= 0)
-			|| (ray[0] >= ((dt->max - 1) * TILE)) || (ray[0] <= 0))
+			|| (ray[0] >= (dt->max * TILE)) || (ray[0] <= 0))
 		{
 			free(ray);
 			return (NULL);
@@ -62,7 +57,7 @@ double	*get_intersection_y(t_data *dt, double *p, double teta, short *sy)
 		ray[0] = p[0] + sy[0] * d[0];
 		ray[1] = p[1] + sy[1] * d[1];
 		if ((ray[1] >= (dt->lines * TILE)) || (ray[1] <= 0)
-			|| (ray[0] >= ((dt->max - 1) * TILE)) || (ray[0] <= 0))
+			|| (ray[0] >= (dt->max * TILE)) || (ray[0] <= 0))
 		{
 			free(ray);
 			return (NULL);
