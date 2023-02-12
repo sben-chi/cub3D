@@ -8,7 +8,7 @@ CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror
 MLXFLAGS =  -framework OpenGl -framework Appkit -Imlx -Iincludes
 
 PARSING = parsing/parsing_utils.c parsing/parsing.c
-RAYCASTING = raycasting/draw_walls.c raycasting/hooks.c raycasting/intersections.c
+RAYCASTING = raycasting/draw_walls.c raycasting/event_hook.c raycasting/loop_hook.c raycasting/intersections.c
 UTILS = main.c utils/utils.c utils/utils2.c
 
 LIBRARY = ./mlx/libmlx.a
