@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:51:23 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 13:13:45 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ t_data	*init_data_(char *file_name)
 	data->map_arr = get_map_arr(data->map, data->lines, data->max);
 	win = (t_window *) my_calloc(1, sizeof(t_window));
 	win->mlx = mlx_init();
+	!(win->mlx) && put_error("mlx_init error\n", 15);
 	win->win = mlx_new_window(win->mlx, WIDTH, HEIGHT, "cub3D");
+	!(win->win) && put_error("mlx_new_window error\n", 21);
 	win->image = my_calloc(1, sizeof(t_image));
 	data->win = win;
 	mlx_mouse_hide();
-	mlx_mouse_move(data->win->win, WIDTH_2, HEIGHT /  2);
+	mlx_mouse_move(data->win->win, (WIDTH /  2), HEIGHT /  2);
 	return (data);
 }
 
@@ -56,7 +58,7 @@ int	main(int ac, char **av)
 	mlx_hook(data->win->win, 3, 0, key_release, data);
 	mlx_hook(data->win->win, 6, 0, mouse_hook, data);
 	mlx_hook(data->win->win, 17, 0, my_close, data->win);
-	mlx_loop_hook(data->win->mlx, update_player_data, data);
+	mlx_loop_hook(data->win->mlx, update_image, data);
 	mlx_loop(data->win->mlx);
 	return (1);
 }

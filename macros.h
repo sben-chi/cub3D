@@ -6,38 +6,35 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/05 19:48:39 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 13:18:23 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
 
-# define BUFFER_SIZE	1000
+# define BUFFER_SIZE	10000
 
 # define STEP		16
 # define TILE		64
 # define WIDTH		1500
-# define WIDTH_2	WIDTH / 2
 # define HEIGHT		900
-# define PROJ_DST	WIDTH_2 / tan(PI_6)
 
-# define PI           3.14159265358979323846
-// # define PI			M_PI
-# define PI_2		PI / 2
-// # define PI_2		M_PI_2
-# define PI_6		PI / 6
-# define _3PI_2		3 * PI / 2
-# define ANGLE		PI / (3 * WIDTH)
+// PI FOR LINUX
+// # define PI           3.14159265358979323846
+// # define PI_2		PI / 2
 
+// PI FOR MAC
+# define PI			M_PI
+# define PI_2		M_PI_2
 
 // COLORS 	!COLORS SHOULD BE DIFFERENT
-# define WALL		0x52688F
-# define GRID		0x050A30
-# define FLOOR		0xE4F4F3
-# define RAYS		0x296090
-# define PLAYER_RAY	0x000000
-# define PLAYER		0x000000
+// # define WALL		0x52688F
+// # define GRID		0x050A30
+// # define FLOOR		0xE4F4F3
+// # define RAYS		0x296090
+// # define PLAYER_RAY	0x000000
+// # define PLAYER		0x000000
 
 // KEY CODES FOR LINUX
 // # define UP		65362
