@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils2.c                                   :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:19:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 13:34:15 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:12:02 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	check_files(char *s1, char *s2)
 	while (i > len - 5)
 	{
 		if (s1[i--] != s2[j--] || i < 0)
-			put_error("your file's extension is wrong\n", 31);
+			put_error("Error:\n > your file's extension is wrong\n", 41);
 	}
 	fd = open(s1, O_RDONLY);
 	if (fd < 0)
-		put_error("No such file or directory\n", 26);
+		put_error("Error:\n > No such file or directory\n", 36);
 	return (fd);
 }
 
@@ -71,4 +71,25 @@ short	add_back(t_map **map, t_map **last, t_map *nnode)
 	(*last)->next = nnode;
 	(*last) = (*last)->next;
 	return (1);
+}
+
+bool	put_error(char *s, size_t len)
+{
+	write(2, s, len);
+	exit (1);
+}
+
+//	is protected (exit in case of error)
+void	*my_calloc(size_t count, size_t size)
+{
+	void	*new;
+	ssize_t	i;
+
+	new = malloc(count * size);
+	if (!new)
+		put_error("allocation error\n", 17);
+	i = -1;
+	while (++i < (ssize_t)(count * size))
+		((unsigned char *)new)[i] = 0;
+	return (new);
 }

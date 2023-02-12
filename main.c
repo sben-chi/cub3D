@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:38:07 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:15:41 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ int	my_close(t_window *win)
 {
 	mlx_destroy_window(win->mlx, win->win);
 	exit(0);
+}
+
+void	init_data(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		data->textures[i] = NULL;
+	data->p[0] = -1;
+	data->p[1] = -1;
+	data->colors[0] = -1;
+	data->colors[1] = -1;
+	data->teta = -1;
+	data->map = NULL;
+	data->lines = 0;
+	data->max = 0;
 }
 
 t_data	*init_data_(char *file_name)

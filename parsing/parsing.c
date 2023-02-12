@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 13:33:31 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:15:33 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ short	check_maptime(t_data *data)
 	i = -1;
 	while (++i < 4)
 		if (!data->textures[i])
-			put_error("Error: invalid elements\n", 24);
+			put_error("Error:\n >  invalid elements\n", 28);
 	if (data->colors[0] == -1 || data->colors[1] == -1)
-		put_error("Error: invalid elements\n", 24);
+		put_error("Error:\n >  invalid elements\n", 28);
 	return (1);
 }
 
@@ -74,12 +74,12 @@ int	check_lines(t_data *data)
 		while (++i < (int)t->llen - 1)
 			if ((b && t->line[i] != '1' && t->line[i] != ' ')
 				|| !is_valid(t, data, i))
-				put_error("Error: Invalid map\n", 19);
+				put_error("Error:\n >  Invalid map\n", 23);
 		data->lines++;
 		t = t->next;
 	}
 	if (data->p[0] < 0)
-		put_error("Error: Invalid map\n", 19);
+		put_error("Error:\n >  Invalid map\n", 23);
 	return (1);
 }
 
@@ -104,7 +104,7 @@ void	parse_time(t_data *data, int fd)
 		else if (line[0] == '\n' && !map_time)
 			free(line);
 		else
-			put_error("Error: invalid map2\n", 20);
+			put_error("Error:\n >  invalid map2\n", 24);
 		line = get_next_line(fd, &llen);
 	}
 	data->max--;

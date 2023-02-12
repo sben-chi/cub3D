@@ -1,16 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.c                                              :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:41:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 19:56:39 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:13:42 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+
+int	check_files(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+	int	len;
+	int	fd;
+
+	len = strlen(s1);
+	i = len - 1;
+	j = 3;
+	while (i > len - 5)
+	{
+		if (s1[i--] != s2[j--] || i < 0)
+			put_error("Error:\n > your file's extension is wrong\n", 41);
+	}
+	fd = open(s1, O_RDONLY);
+	if (fd < 0)
+		put_error("Error:\n > No such file or directory\n", 36);
+	return (fd);
+}
+
+bool	**get_map_arr(t_map *map, size_t lines, size_t max)
+{
+	bool	**arr;
+	ssize_t	i;
+	ssize_t	j;
+
+	i = -1;
+	arr = my_calloc(lines + 1, sizeof(bool *));
+	while (++i < (ssize_t)(lines))
+	{
+		j = -1;
+		arr[i] = my_calloc(max + 1, sizeof(bool));
+		while (map->line[++j])
+			arr[i][j] = (map->line[j] == '1');
+		map = map->next;
+	}
+	arr[i] = NULL;
+	return (arr);
+}
 
 char	*cat_copy(char *s1, char *s2, size_t len)
 {
