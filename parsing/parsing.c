@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 10:54:49 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 12:45:06 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ short	is_valid(t_map *t, t_data *data, long long i)
 	{
 		data->p[0] = i * TILE + TILE / 2;
 		data->p[1] = data->lines * TILE + TILE / 2;
-		data->teta = (3 * PI / 2) * (t->line[i] == 'S')
-			+ PI * (t->line[i] == 'N') + (PI / 2) * (t->line[i] == 'W');
+		data->teta = (3 * PI / 2) * (t->line[i] == 'N')
+			+ PI * (t->line[i] == 'W') + (PI / 2) * (t->line[i] == 'S');
 	}
 	return (1);
 }
