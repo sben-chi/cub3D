@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fct.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:33:12 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/11 19:41:52 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ bool	put_error(char *s, size_t len)
 void	*my_calloc(size_t count, size_t size)
 {
 	void	*new;
-	size_t	i;
+	ssize_t	i;
 
 	new = malloc(count * size);
 	if (!new)
 		put_error("allocation error\n", 17);
 	i = -1;
-	while (++i < count * size)
+	while (++i < (ssize_t)(count * size))
 		((unsigned char *)new)[i] = 0;
 	return (new);
 }
@@ -41,7 +41,7 @@ bool	**get_map_arr(t_map *map, size_t lines, size_t max)
 
 	i = -1;
 	arr = my_calloc(lines + 1, sizeof(bool *));
-	while (++i < lines)
+	while (++i < (ssize_t)(lines))
 	{
 		j = -1;
 		arr[i] = my_calloc(max, sizeof(bool));

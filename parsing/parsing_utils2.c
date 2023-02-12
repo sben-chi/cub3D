@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:19:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/28 15:00:03 by imane            ###   ########.fr       */
+/*   Updated: 2023/02/12 13:34:15 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	check_files(char *s1, char *s2)
 	while (i > len - 5)
 	{
 		if (s1[i--] != s2[j--] || i < 0)
-			exit(printf("your file's extension is wrong\n"));
+			put_error("your file's extension is wrong\n", 31);
 	}
 	fd = open(s1, O_RDONLY);
 	if (fd < 0)
-		exit(printf("No such file or directory\n"));
+		put_error("No such file or directory\n", 26);
 	return (fd);
 }
 

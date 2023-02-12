@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:46 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:21:45 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:21:05 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	draw_walls(t_data *data, t_image *cub, double *rays)
 	long long	x;
 	long long	y[2];
 
-	k = WIDTH_2;
+	k = (WIDTH / 2);
 	x = -1;
 	while (++x < WIDTH)
 	{
-		k += (x > WIDTH_2) - (x <= WIDTH_2);
+		k += (x > (WIDTH / 2)) - (x <= (WIDTH / 2));
 		(rays[x] < 1) && (rays[x] = 1);
-		wall_h = round((TILE / rays[x]) * PROJ_DST);
+		wall_h = round((TILE / rays[x]) * ((WIDTH / 2) / tan((PI / 6))));
 		dst_proj = round((HEIGHT - wall_h) / 2);
 		y[0] = 0;
 		y[1] = dst_proj * (dst_proj > 0);
