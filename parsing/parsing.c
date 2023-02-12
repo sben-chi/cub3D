@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/01/30 12:12:59 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 10:54:49 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,20 @@ short	check_maptime(t_data *data)
 	return (1);
 }
 
-short	exist_err(t_map *t, int i)
+short	exist_err(t_map *t, long long i)
 {
 	short	a;
 	short	b;
 
-	a = (t->next && ((t->next->llen < (size_t)i) || t->next->line[i] == ' '
+	a = (t->next && ((t->next->llen < i) || t->next->line[i] == ' '
 				|| t->next->line[i] == '\n' || !t->next->line[i]));
-	b = (t->prev && (t->prev->llen < (size_t)i || t->prev->line[i] == ' '
+	b = (t->prev && (t->prev->llen < i || t->prev->line[i] == ' '
 				|| t->prev->line[i] == '\n'));
-	return (!i || (size_t)i == t->llen - 2 || t->line[i - 1] == ' '
+	return (!i || i == t->llen - 2 || t->line[i - 1] == ' '
 		|| t->line[i + 1] == ' ' || a || b);
 }
 
-short	is_valid(t_map *t, t_data *data, int i)
+short	is_valid(t_map *t, t_data *data, long long i)
 {
 	short		b;
 	static char	str[] = "NSEW 01";
@@ -54,16 +54,16 @@ short	is_valid(t_map *t, t_data *data, int i)
 		data->p[0] = i * TILE + TILE / 2;
 		data->p[1] = data->lines * TILE + TILE / 2;
 		data->teta = (3 * PI / 2) * (t->line[i] == 'S')
-			+  PI * (t->line[i] == 'N') + (PI / 2) * (t->line[i] == 'W');
+			+ PI * (t->line[i] == 'N') + (PI / 2) * (t->line[i] == 'W');
 	}
 	return (1);
 }
 
 int	check_lines(t_data *data)
 {
-	short	b;
-	int		i;
-	t_map	*t;
+	short		b;
+	t_map		*t;
+	long long	i;
 
 	t = data->map;
 	b = 0;
@@ -72,7 +72,8 @@ int	check_lines(t_data *data)
 		i = -1;
 		b = (!t->prev || !t->next);
 		while (++i < (int)t->llen - 1)
-			if ((b && t->line[i] != '1' && t->line[i] != ' ') || !is_valid(t, data, i))
+			if ((b && t->line[i] != '1' && t->line[i] != ' ')
+				|| !is_valid(t, data, i))
 				exit(printf("Error: Invalid map\n"));
 		data->lines++;
 		t = t->next;
