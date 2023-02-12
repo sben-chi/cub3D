@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:22:00 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 13:07:25 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_data	*init_data_(char *file_name)
 	win->image = my_calloc(1, sizeof(t_image));
 	data->win = win;
 	data->map_arr = get_map_arr(data->map, data->lines, data->max);
-	//mlx_mouse_hide();
-	//mlx_mouse_move(data->win->win, WIDTH_2, HEIGHT /  2);
+	mlx_mouse_hide();
+	mlx_mouse_move(data->win->win, WIDTH_2, HEIGHT /  2);
 	return (data);
 }
 
