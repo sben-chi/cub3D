@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gnl.c                                              :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:41:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 13:55:36 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 15:26:28 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
 
 int	check_files(char *s1, char *s2)
 {
@@ -26,11 +25,11 @@ int	check_files(char *s1, char *s2)
 	while (i > len - 5)
 	{
 		if (s1[i--] != s2[j--] || i < 0)
-			exit(printf("your file's extension is wrong\n"));
+			put_error("Error:\n > your file's extension is wrong\n", 41);
 	}
 	fd = open(s1, O_RDONLY);
 	if (fd < 0)
-		exit(printf("No such file or directory\n"));
+		put_error("Error:\n > No such file or directory\n", 36);
 	return (fd);
 }
 

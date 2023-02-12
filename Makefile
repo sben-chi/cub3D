@@ -18,7 +18,6 @@ all: $(NAME)
 $(NAME): $(PARSING:.c=.o) $(RAYCASTING:.c=.o) $(UTILS:.c=.o) 
 	$(CC)  $(PARSING) $(RAYCASTING) $(UTILS) $(LIBRARY) -o $@ $(CFLAGS) $(MLXFLAGS) -lm
 
-
 clean:
 	rm -rf *.o parsing/*.o raycasting/*.o utils/*.o
 

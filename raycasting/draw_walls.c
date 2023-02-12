@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 12:14:46 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:57:58 by irhesri          ###   ########.fr       */
+/*   Created: 2023/02/12 15:03:05 by sben-chi          #+#    #+#             */
+/*   Updated: 2023/02/12 15:03:14 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_image	*get_imgs_data(t_data *dt, long x)
 			text_img[i].img = mlx_xpm_file_to_image(dt->win->mlx,
 					dt->textures[i], &text_img[i].w_img, &text_img[i].h_img);
 			if (!text_img[i].img)
-				exit(printf("Error: xpm_file\n"));
+				put_error("Error:\n >  xpm_file\n", 21);
 			text_img[i].address = mlx_get_data_addr(text_img[i].img,
 					&text_img[i].bits, &text_img[i].len, &text_img[i].endian);
 			i++;
