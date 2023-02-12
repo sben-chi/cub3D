@@ -6,12 +6,11 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 13:41:42 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 14:13:42 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:26:28 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
 
 int	check_files(char *s1, char *s2)
 {

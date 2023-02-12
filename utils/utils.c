@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 15:19:38 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 14:12:02 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 15:07:54 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,6 @@ int	my_strlen(char *s)
 	while (s && s[i])
 		i++;
 	return (i);
-}
-
-int	check_files(char *s1, char *s2)
-{
-	int	i;
-	int	j;
-	int	len;
-	int	fd;
-
-	len = strlen(s1);
-	i = len - 1;
-	j = 3;
-	while (i > len - 5)
-	{
-		if (s1[i--] != s2[j--] || i < 0)
-			put_error("Error:\n > your file's extension is wrong\n", 41);
-	}
-	fd = open(s1, O_RDONLY);
-	if (fd < 0)
-		put_error("Error:\n > No such file or directory\n", 36);
-	return (fd);
 }
 
 t_map	*new(char *line, int len)
