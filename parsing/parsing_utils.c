@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 14:06:24 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 19:32:48 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 14:14:44 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	get_color(t_data *data, char *element, int k, int len)
 		while (element[i] >= 48 && element[i] <= 57 && cl[j] <= 255)
 			cl[j] = ((cl[j] + (cl[j] < 0)) * 10) + (element[i++] - 48);
 		if (cl[j] > 255)
-			exit(printf("Error: invalid nb of color1\n"));
+			put_error("Error:\n >  invalid nb of color\n", 31);
 		if (element[i] == ',' && j < 2)
 			j++;
 		else if (element[i] != '\n')
-			exit(printf("Error: invalid nb of color2\n"));
+			put_error("Error:\n >  invalid nb of color\n", 31);
 	}
 	if (cl[0] < 0 || cl[1] < 0 || cl[2] < 0)
-		exit(printf("Error: invalid nb of color: {xxx,xxx,xxx}\n"));
+		put_error("Error:\n >  invalid nb of color: {xxx,xxx,xxx}\n", 46);
 	data->colors[k] = (0 << 24 | cl[0] << 16 | cl[1] << 8 | cl[2]);
 }
 
@@ -45,7 +45,7 @@ void	check_colors(t_data *data, int i, char *element, int len)
 
 	j = 0;
 	if (data->colors[i] >= 0 || element[len - 2] != '\n')
-		exit(printf("Error: color: data < \n"));
+		put_error("Error:\n >  color: data < \n", 26);
 	while (element[j] && element[j] == ' ')
 		j++;
 	get_color(data, element + j, i, len - j - 2);
@@ -60,7 +60,7 @@ void	check_texture(t_data *data, int k, char *element, int len)
 		i++;
 	len = my_strlen(element);
 	if (data->textures[k] || element[len - 1] != '\n')
-		exit(printf("Error: Texture file\n"));
+		put_error("Error:\n >  Texture file\n", 24);
 	element[len - 1] = '\0';
 	check_files(element + i, ".xpm");
 	data->textures[k] = element + i;

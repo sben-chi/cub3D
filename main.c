@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:41:48 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 15:24:43 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av)
 	t_data	*data;
 
 	if (ac != 2)
-		put_error("wrong arguments\n", 16);
+		put_error("Error:\n > wrong arguments\n", 26);
 	data = init_data_(av[1]);
 	new_image(data, data->win);
 	mlx_hook(data->win->win, 2, 0, key_press, data);

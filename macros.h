@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:18:23 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 13:37:16 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@
 // # define PLAYER		0x000000
 
 // KEY CODES FOR LINUX
-// # define UP		65362
-// # define DOWN	65364
-// # define RIGHT	65363
-// # define LEFT	65361		
-// # define W		119		
-// # define S		115		
-// # define A		97		
-// # define D		100	
-// # define ESC		65307
+//  # define UP		65362
+//  # define DOWN	65364
+//  # define RIGHT	65363
+//  # define LEFT	65361		
+//  # define W		119		
+//  # define S		115		
+//  # define A		97		
+//  # define D		100	
+//  # define ESC		65307
 
 // KEY CODES FOR MAC
 # define UP		126

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 13:32:29 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 14:15:33 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ short	check_maptime(t_data *data)
 	i = -1;
 	while (++i < 4)
 		if (!data->textures[i])
-			exit(printf("Error: invalid elements\n"));
+			put_error("Error:\n >  invalid elements\n", 28);
 	if (data->colors[0] == -1 || data->colors[1] == -1)
-		exit(printf("Error: invalid elements\n"));
+		put_error("Error:\n >  invalid elements\n", 28);
 	return (1);
 }
 
@@ -53,16 +53,16 @@ short	is_valid(t_map *t, t_data *data, long long i)
 	{
 		data->p[0] = i * TILE + TILE / 2;
 		data->p[1] = data->lines * TILE + TILE / 2;
-		data->teta = (3 * PI / 2) * (t->line[i] == 'N')
-			+ PI * (t->line[i] == 'W') + (PI / 2) * (t->line[i] == 'S');
+		data->teta = (3 * PI_2) * (t->line[i] == 'N')
+			+ PI * (t->line[i] == 'W') + (PI_2) * (t->line[i] == 'S');
 	}
 	return (1);
 }
 
 int	check_lines(t_data *data)
 {
-	t_map		*t;
 	short		b;
+	t_map		*t;
 	long long	i;
 
 	t = data->map;
@@ -74,21 +74,21 @@ int	check_lines(t_data *data)
 		while (++i < (int)t->llen - 1)
 			if ((b && t->line[i] != '1' && t->line[i] != ' ')
 				|| !is_valid(t, data, i))
-				exit(printf("Error: Invalid map\n"));
+				put_error("Error:\n >  Invalid map\n", 23);
 		data->lines++;
 		t = t->next;
 	}
 	if (data->p[0] < 0)
-		exit(printf("Error: Invalid map\n"));
+		put_error("Error:\n >  Invalid map\n", 23);
 	return (1);
 }
 
 void	parse_time(t_data *data, int fd)
 {
 	char			*line;
-	static t_map	*map_last;
-	size_t			llen;
 	short			map_time;
+	size_t			llen;
+	static t_map	*map_last;
 
 	line = get_next_line(fd, &llen);
 	map_time = 0;
@@ -104,7 +104,7 @@ void	parse_time(t_data *data, int fd)
 		else if (line[0] == '\n' && !map_time)
 			free(line);
 		else
-			exit(printf("Error: invalid map2\n"));
+			put_error("Error:\n >  invalid map2\n", 24);
 		line = get_next_line(fd, &llen);
 	}
 	data->max--;
