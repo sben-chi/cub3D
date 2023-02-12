@@ -6,7 +6,7 @@
 /*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:13:45 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/12 13:41:48 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ int	my_close(t_window *win)
 {
 	mlx_destroy_window(win->mlx, win->win);
 	exit(0);
+}
+
+void	init_data(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		data->textures[i] = NULL;
+	data->p[0] = -1;
+	data->p[1] = -1;
+	data->colors[0] = -1;
+	data->colors[1] = -1;
+	data->teta = -1;
+	data->map = NULL;
+	data->lines = 0;
+	data->max = 0;
 }
 
 t_data	*init_data_(char *file_name)
@@ -42,7 +59,7 @@ t_data	*init_data_(char *file_name)
 	win->image = my_calloc(1, sizeof(t_image));
 	data->win = win;
 	mlx_mouse_hide();
-	mlx_mouse_move(data->win->win, (WIDTH /  2), HEIGHT /  2);
+	mlx_mouse_move(data->win->win, (WIDTH / 2), HEIGHT / 2);
 	return (data);
 }
 

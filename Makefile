@@ -1,28 +1,29 @@
 NAME = cub3D
-NAME_B = cub3D_bonus
 CC = gcc 
 # LINUX
 # CFLAGS		= -lm -lmlx -lbsd -lXext -lX11 -fsanitize=address -g
 # LFLAGS		= -L /usr/local/lib
 # CPPFLAGS	= -I /usr/local/include
-CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror 
-LFLAGS =  -framework OpenGl -framework Appkit -Imlx -Iincludes
-MANDATORY = main.c ./new/fct.c ./new/intersections.c ./new/hooks.c ./new/draw_walls.c
-F =  ./parsing/init_data.c ./parsing/parsing_utils.c ./parsing/gnl.c ./parsing/parsing.c ./parsing/parsing_utils2.c textures/textures.c
+CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror 
+MLXFLAGS =  -framework OpenGl -framework Appkit -Imlx -Iincludes
 
-LIBRARY = libmlx.a
+PARSING = parsing/parsing_utils.c parsing/parsing.c
+RAYCASTING = raycasting/draw_walls.c raycasting/hooks.c raycasting/intersections.c
+UTILS = main.c utils/utils.c utils/utils2.c
+
+LIBRARY = ./mlx/libmlx.a
 
 all: $(NAME)
 
-$(NAME): $(MANDATORY:.c=.o) $(F:.c=.o) 
-	gcc  $(MANDATORY) $(F) ./mlx/libmlx.a -o $@ $(CFLAGS) $(CPPFLAGS) $(LFLAGS) -lm
+$(NAME): $(PARSING:.c=.o) $(RAYCASTING:.c=.o) $(UTILS:.c=.o) 
+	$(CC)  $(PARSING) $(RAYCASTING) $(UTILS) $(LIBRARY) -o $@ $(CFLAGS) $(MLXFLAGS) -lm
 
 
 clean:
-	rm -rf *.o ./parsing/*.o ./new/*.o textures/textures.o
+	rm -rf *.o parsing/*.o raycasting/*.o utils/*.o
 
 fclean: clean
-	rm -rf $(NAME) $(NAME_B)
+	rm -rf $(NAME)
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 13:56:27 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/11 20:55:10 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:32:29 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,6 @@ void	parse_time(t_data *data, int fd)
 			exit(printf("Error: invalid map2\n"));
 		line = get_next_line(fd, &llen);
 	}
+	data->max--;
 	check_lines(data);
 }
