@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/11 19:26:33 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 13:07:18 by irhesri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,42 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include "./mlx/mlx.h"
 # include <string.h>
 # include <limits.h>
 # include "stdbool.h"
 
 # include "./data.h"
 # include "./macros.h"
+# include "./mlx/mlx.h"
 
-
-// void	draw_lines(t_segment *seg, t_window *win);
-bool	**get_map_arr(t_map *map, size_t lines, size_t max);
-void	draw_view_angle(t_data *data, t_window *win);
-// void	draw_map(t_image *img, t_data *data);
-
-
+// basic fcts
 void	*my_calloc(size_t count, size_t size);
 bool	put_error(char *s, size_t len);
+bool	**get_map_arr(t_map *map, size_t lines, size_t max);
 
-int		my_close(t_window *win);
-int		key_hook(t_data *d);
+// update image
+void	get_view_info(t_data *data);
 void	draw_walls(t_data *data, t_image *cub, double *rays);
 void	new_image(t_data *data, t_window *win);
-void	init_data_tst(t_data *data);
+
+// hooks call functions
+int		key_press(int key, t_data *data);
+int		key_release(int key, t_data *data);
 int		mouse_hook(int x, int y, t_data *data);
-int	key_press(int key, t_data *data);
-int	key_release(int key, t_data *data);
+int		update_image(t_data *data);
+int		my_close(t_window *win);
 
-
-// to delete
-void	draw_tst(t_data *data, double *ptr);
-void	draw_map(t_data *data, t_image *img);
-void	seg_init(t_segment *seg, t_image *map);
-void	new_image_tst(t_data *data, t_window *win);
-//-----------
-
-
-
-
-
-
-char	*get_next_line(int fd, size_t *t_len);
+// parsing
 int		check_files(char *s1, char *s2);
 int		my_strlen(char *s);
-short	add_back(t_map **map, t_map **last, t_map *nnode);
-t_map	*new(char *line, int len);
+char	*get_next_line(int fd, size_t *t_len);
 void	init_data(t_data *data);
 void	parse_time(t_data *data, int fd);
+short	add_back(t_map **map, t_map **last, t_map *nnode);
 short	element(t_data *data, char *element, int len);
+t_map	*new(char *line, int len);
 
-//------------new modif from saida
+// textures
 void	textures(t_data *dt, long long x, long long *y, double wall_h);
-//--------------------------------
 
 #endif
