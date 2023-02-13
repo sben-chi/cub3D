@@ -6,7 +6,7 @@
 /*   By: sben-chi <sben-chi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:03:05 by sben-chi          #+#    #+#             */
-/*   Updated: 2023/02/12 15:03:14 by sben-chi         ###   ########.fr       */
+/*   Updated: 2023/02/12 19:11:39 by sben-chi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	textures(t_data *dt, long long x, long long *y, double wall_h)
 
 	win_img = dt->win->image;
 	img_text = get_imgs_data(dt, x);
-	img_x = (long)(dt->diff[x] * (img_text->w_img / TILE)) % img_text->w_img;
+	img_x = ((long)(dt->diff[x] * (img_text->w_img / TILE)) % img_text->w_img);
+	if ((dt->dir[x] == 'S') || (dt->dir[x] == 'W'))
+		img_x = img_text->w_img - img_x - 1;
 	while ((y[0] < y[1]) && (y[0] < HEIGHT))
 	{
 		img_y = ((y[0] - ((HEIGHT - wall_h) / 2)) * (img_text->h_img / wall_h));
