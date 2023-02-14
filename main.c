@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:24 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 18:31:39 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:04:35 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_data	*init_data_(char *file_name)
 	win->image = my_calloc(1, sizeof(t_image));
 	data->win = win;
 	mlx_mouse_hide();
-	mlx_mouse_move(data->win->win, (WIDTH / 2), HEIGHT / 2);
+	mlx_mouse_move(win->win, (WIDTH / 2), HEIGHT / 2);
 	return (data);
 }
 
@@ -71,10 +71,11 @@ int	main(int ac, char **av)
 		put_error("Error:\n > wrong arguments\n", 26);
 	data = init_data_(av[1]);
 	new_image(data, data->win);
-	mlx_hook(data->win->win, 2, 0, key_press, data);
-	mlx_hook(data->win->win, 3, 0, key_release, data);
-	mlx_hook(data->win->win, 6, 0, mouse_hook, data);
-	mlx_hook(data->win->win, 17, 0, my_close, data->win);
+	mlx_hook(data->win->win, 2, X_MASK, key_press, data);
+	mlx_hook(data->win->win, 3, X2_MASK, key_release, data);
+	if (!X_MASK)
+		mlx_hook(data->win->win, 6, X_MASK, mouse_hook, data);
+	mlx_hook(data->win->win, 17, X_MASK, my_close, data->win);
 	mlx_loop_hook(data->win->mlx, update_image, data);
 	mlx_loop(data->win->mlx);
 	return (1);

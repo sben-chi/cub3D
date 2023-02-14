@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:01:33 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/14 13:26:38 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define DATA_H
 
 # include "stdbool.h"
+
+# define STEP		16
+# define TILE		64
+# define WIDTH		1500
+# define HEIGHT		900
+# define BUFFER_SIZE 10000
 
 typedef struct s_image
 {
