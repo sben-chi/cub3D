@@ -12,7 +12,7 @@ ifeq ($(OS), Linux)
 	MLXFLAGS	= -lmlx -lbsd -lXext -lX11
 	LIBRARY		= mlx_linux/libmlx.a
 endif
-ifeq ($(OS), Mac)
+ifeq ($(OS), Darwin)
 	MLXFLAGS	= -framework OpenGl -framework Appkit -Imlx -Iincludes
 	LIBRARY		= mlx_mac/libmlx.a
 endif
