@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooks.c                                            :+:      :+:    :+:   */
+/*   event_hook.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:14:27 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 18:17:36 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/14 18:04:19 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	mouse_hook(int x, int y, t_data *data)
 {
 	(void)y;
 	data->teta += 0.1 * ((x > (WIDTH / 2)) - (x < (WIDTH / 2)));
+	
 	mlx_mouse_hide();
 	mlx_mouse_move(data->win->win, (WIDTH / 2), HEIGHT / 2);
-	return (1);
+	return (0);
 }

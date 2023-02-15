@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irhesri <irhesri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: imane <imane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:13:44 by irhesri           #+#    #+#             */
-/*   Updated: 2023/02/12 13:07:18 by irhesri          ###   ########.fr       */
+/*   Updated: 2023/02/14 14:14:56 by imane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@
 # include <limits.h>
 # include "stdbool.h"
 
-# include "./data.h"
-# include "./macros.h"
-# include "./mlx/mlx.h"
+# include "data.h"
+
+# ifdef __linux__
+#  include "mlx_linux/mlx_linux.h"
+# else
+#  include "mlx_mac/mlx_mac.h"
+# endif
 
 // basic fcts
 void	*my_calloc(size_t count, size_t size);
