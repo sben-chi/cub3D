@@ -94,4 +94,4 @@ The map file should be a plain text file with the following elements:
 The mlx library used in the project was provided by [Minilibx](https://github.com/42Paris/minilibx-linux).
 
 ## Special Thanks
-- A big thank you to [@ContributorUsername](https://github.com/irhesri) for her valuable contributions!
+- A big thank you to [@Imane](https://github.com/irhesri) for her valuable contributions!
