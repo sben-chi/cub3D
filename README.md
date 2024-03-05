@@ -70,7 +70,7 @@ The map file should be a plain text file with the following elements:
 ```
 <div align="center">
   
-![cub3D](./readmeAssests/cub3D.gif)
+![cub3D](./readmeAssets/cub3D.gif)
 </div>
 
 ## Controls:
