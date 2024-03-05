@@ -28,7 +28,7 @@ ifndef MLXFLAGS
 endif
 
 $(NAME): check_OS $(OBJ) 
-	$(CC) $(OBJ) $(LIBRARY) -o $@ $(CFLAGS) $(MLXFLAGS) -lm
+	$(CC) -Lmlx_linux/ $(OBJ) $(LIBRARY) -o $@ $(CFLAGS) $(MLXFLAGS) -lm
 
 clean:
 	rm -rf $(OBJ)

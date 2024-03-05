@@ -1,7 +1,7 @@
-NO maps/xpm_files/eagle.xpm
+NO maps/xpm_files/colorstone.xpm
 SO maps/xpm_files/colorstone.xpm
-WE maps/xpm_files/rock.xpm
-EA maps/xpm_files/planks.xpm
+WE maps/xpm_files/colorstone.xpm
+EA maps/xpm_files/colorstone.xpm
 
 
 F 57,57,71
